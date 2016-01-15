@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Serve the specified path (by default the current directory) via HTTP.
+#
+# Usage: ws [directory] [options...]
+#
+
+dir="$PWD"
+if [ -d "$1" ]; then
+    dir="$1"
+    shift 1
+fi
+
+(cd $dir; python3 -m http.server "$@")

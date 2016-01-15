@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Ssh to an LXC by name.
+#
+
+hostname="$1"
+if [ ! "$hostname" ]; then
+    echo "Missing LXC name"
+    exit 1
+fi
+
+ip=$(lxc-ip "$hostname")
+if [ ! "$ip" ]; then
+    echo "Address not found"
+    exit 2
+fi
+
+shift 1
+ssh "$ip" "$@"

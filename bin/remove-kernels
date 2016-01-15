@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Remove kernel packages with specified versions
+#
+
+if [ $# -eq 0 ]; then
+    dpkg-query -W -f '${Package}\n' 'linux-image-[0-9]*-generic' | \
+        awk -v cur=$(uname -r) '{ sub("linux-image-", ""); is_cur = ($0 == cur); sub("-generic", ""); print $0, (is_cur ? "*" : ""); }'
+    exit
+fi
+
+pkgs=""
+for ver in $@
+do
+    pkgs+=" linux-image-${ver}-generic linux-headers-${ver}"
+done
+
+sudo apt-get autoremove --purge $pkgs

@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Return the IP address of the specified LXC.
+#
+
+if [ ! "$1" ]; then
+    echo "Missing LXC name"
+    exit 1
+fi
+
+sudo lxc-info --name $1 --ips | awk '{ print $2; exit; }'

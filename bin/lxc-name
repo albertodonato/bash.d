@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Return the name of the host LXC, or empty if not in a container.
+#
+
+awk -F: '$2 ~ "^cpu" && $3 != "/" {
+        n = split($3, tokens, "/");
+        print tokens[n];
+        exit;
+    }' /proc/1/cgroup
