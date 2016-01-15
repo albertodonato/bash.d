@@ -2,4 +2,4 @@
 Ack's bash setup
 ================
 
-My own Bash shell setup.
+My own Bash shell configuration.
