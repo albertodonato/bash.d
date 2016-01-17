@@ -20,7 +20,6 @@ source_many() {
     done
 }
 
-source_if_exists $HOME/.bashrc.private
 source_if_exists /etc/bash_completion
 
 source_many $SYSTEM_BASH_DIR/rc.d/*.sh

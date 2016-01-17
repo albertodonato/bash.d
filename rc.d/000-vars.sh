@@ -12,3 +12,6 @@ export HISTFILESIZE=100000
 
 export EDITOR="emacsclient -c -a vim"
 export LESS="-R"
+
+export EMAIL="alberto.donato@gmail.com"
+export DEBEMAIL="$EMAIL"
