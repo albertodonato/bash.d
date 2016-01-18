@@ -19,14 +19,16 @@ bzr_current_pipe() {
 }
    
 #
-# Return the name of the current pipe if different from the branch name
+# Return the name of the current pipe if different from the branch name.
 #
 # Usage: bzr_pipe_if_different [path]
 #
 bzr_pipe_if_different() {
-    if bzr_is_lw_checkout "$1"; then
-        local dir=$(basename "$1")
-        local pipe=$(bzr_current_pipe "$1")
+    local path
+    [ "$1" ] && path="$1" || path="$PWD"
+    if bzr_is_lw_checkout "$path"; then
+        local dir=$(basename "$path")
+        local pipe=$(bzr_current_pipe "$path")
         [ "$dir" != "$pipe" ] && echo "$pipe"
     fi
 }
