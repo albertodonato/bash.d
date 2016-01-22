@@ -9,7 +9,7 @@ alias ll="ls -lFh --color=tty"
 alias la="ll -A"
 
 alias grep="grep --color=auto"
-alias a="ack-grep"
+alias a="ack"
 alias p0="patch -p0"
 alias tmux="tmux -2"
 alias clip="xsel --clipboard"
