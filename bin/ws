@@ -11,4 +11,4 @@ if [ -d "$1" ]; then
     shift 1
 fi
 
-(cd $dir; python3 -m http.server "$@")
+(cd "$dir"; python3 -m http.server "$@")
