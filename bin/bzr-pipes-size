@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Return a list of bzr pipes in the pipeline, with their diff size.
+#
+
+for pipe in $(bzr pipes | awk '{ print $NF; }'); do
+    [ "$prev_pipe" ] && revspec=":pipe:$prev_pipe" || revspec="ancestor:"
+    revspec+="..:pipe:$pipe"
+
+    lines=$(bzr diff -r $revspec 2>/dev/null | wc -l)
+    printf "%4d %s\n" $lines $pipe
+    prev_pipe=$pipe
+done
+
