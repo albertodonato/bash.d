@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# List installed kernel packages.
+#
+
+dpkg-query -W -f '${Status} ${Package}\n' 'linux-image-[0-9]*-*' | \
+    awk -v cur=$(uname -r) '
+        $3 == "installed" {
+           ver = $4;
+           sub("linux-image-", "", ver);
+           is_cur = ( ver == cur);
+           print (is_cur ? "*" : ""), ver;
+        }'
