@@ -3,6 +3,10 @@
 # Return the name of the host LXC, or empty if not in a container.
 #
 
+. $SYSTEM_SH_LIB_DIR/container.sh
+
+[ "$(container_type)" = "lxc" ] || exit
+
 awk -F: '$2 ~ "^cpu" && $3 != "/" {
         n = split($3, tokens, "/");
         print tokens[n];
