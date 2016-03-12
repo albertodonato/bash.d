@@ -12,5 +12,5 @@ dpkg-query -W -f '${Status} ${Package} ${Version}\n' 'linux-image-[0-9]*-*' | \
            version = $5;
            is_cur = ( package == cur);
 
-           printf("%s %s [%s]\n", (is_cur ? "*" : ""), package, version);
+           printf("%s %s [%s]\n", (is_cur ? "*" : " "), package, version);
         }'
