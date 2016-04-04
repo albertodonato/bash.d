@@ -3,7 +3,7 @@
 # Hook for LXC login setup
 #
 
-if [ "$(lxc-name)" ]; then
+if [ "$(container_type)" = "lxc" ]; then
     # Use the same ssh agent for all SSH connections.
     agent_source_file=/tmp/ssh-agent.source
 
