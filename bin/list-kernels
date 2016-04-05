@@ -3,14 +3,17 @@
 # List installed kernel packages.
 #
 
-dpkg-query -W -f '${Status} ${Package} ${Version}\n' 'linux-image-[0-9]*-*' | \
-    awk -v cur=$(uname -r) '
-        $3 == "installed" {
-           package = $4;
-           sub("linux-image-", "", package);
+format='${Status} ${Package} ${Version}\n'
+packages="linux-image-[0-9]*-*"
+current=$(uname -r)
 
-           version = $5;
-           is_cur = (package == cur);
+dpkg-query -W -f "$format" "$packages" | awk -v cur=$current '
+    $3 == "installed" {
+        package = $4;
+        sub("linux-image-", "", package);
 
-           printf("%s %s [%s]\n", (is_cur ? "*" : " "), package, version);
-        }'
+        version = $5;
+        is_cur = (package == cur);
+
+        printf("%s %s [%s]\n", (is_cur ? "*" : " "), package, version);
+    }'
