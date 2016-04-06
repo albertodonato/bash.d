@@ -11,8 +11,6 @@ alias la="ll -A"
 alias grep="grep --color=auto"
 alias a="ag --color-match '49;31' --pager less"
 alias p0="patch -p0"
-alias tmux="tmux -2"
-alias clip="xsel --clipboard"
 
 if [ "$DISPLAY" ]; then
     alias e="emacsclient -n"
