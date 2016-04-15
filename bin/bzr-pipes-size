@@ -3,12 +3,18 @@
 # Return a list of bzr pipes in the pipeline, with their diff size.
 #
 
+diffstat_counts() {
+    tail -n 1 | awk '{ print $1, $4, $6; }'
+}
+
+echo " lns  fls    +    - name"
 for pipe in $(bzr pipes | awk '{ print $NF; }'); do
     [ "$prev_pipe" ] && revspec=":pipe:$prev_pipe" || revspec="ancestor:"
     revspec+="..:pipe:$pipe"
 
     lines=$(bzr diff -r $revspec 2>/dev/null | wc -l)
-    printf "%4d %s\n" $lines $pipe
+    counts="$(bzr diffstat -r $revspec | diffstat_counts)"
+    printf "%4d %4d %4d %4d %s\n" $lines $counts $pipe
     prev_pipe=$pipe
 done
 
