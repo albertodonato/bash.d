@@ -4,7 +4,7 @@
 #
 
 diffstat_counts() {
-    tail -n 1 | awk '{ print $1, $4, $6, $4 + $6; }'
+    awk 'END { print $1, $4, $6, $4 + $6; }'
 }
 
 total_lines=0
@@ -18,7 +18,7 @@ for pipe in $(bzr pipes | awk '{ print $NF; }'); do
 
     lines=$(bzr diff -r $revspec 2>/dev/null | wc -l)
     if [ $lines -eq 0 ]; then
-       counts=(0 0 0 0)
+        counts=(0 0 0 0)
     else
         counts=($(bzr diffstat -r $revspec | diffstat_counts))
 
