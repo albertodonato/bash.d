@@ -4,7 +4,7 @@
 #
 
 diffstat_counts() {
-    awk 'END { print $1, $4, $6, $4 + $6; }'
+    diffstat -s | awk 'END { print $1, $4+0, $6+0, $4 + $6; }'
 }
 
 total_lines=0
@@ -16,12 +16,14 @@ for pipe in $(bzr pipes | awk '{ print $NF; }'); do
     [ "$prev_pipe" ] && revspec=":pipe:$prev_pipe" || revspec="ancestor:"
     revspec+="..:pipe:$pipe"
 
-    lines=$(bzr diff -r $revspec 2>/dev/null | wc -l)
+    tmpfile=$(mktemp)
+    counts=($(bzr diff -r $revspec | tee $tmpfile | diffstat_counts))
+    lines=$(wc -l <$tmpfile)
+    rm $tmpfile
+
     if [ $lines -eq 0 ]; then
         counts=(0 0 0 0)
     else
-        counts=($(bzr diffstat -r $revspec | diffstat_counts))
-
         total_lines=$((total_lines + lines))
         for x in $(seq 0 3); do
             total_counts[$x]=$((total_counts[x] + counts[x]))
@@ -35,3 +37,5 @@ done
 
 echo "                         --"
 printf "%4d %4d %4d %4d %4d total\n" $total_lines ${total_counts[@]}
+
+
