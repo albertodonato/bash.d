@@ -1,4 +1,7 @@
 # -*- mode: sh -*-
+#
+# Miscellaneous functions.
+#
 
 #
 # Print boolean value of the exit code of the command passed as argument.

@@ -1,4 +1,7 @@
 # -*- mode: sh -*-
+#
+# Networking utility functions.
+#
 
 #
 # Return the IP of a nova instance by name.

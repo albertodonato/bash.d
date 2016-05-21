@@ -1,4 +1,7 @@
 # -*- mode: sh -*-
+#
+# Utility functions for Bazaar.
+#
 
 #
 # Return the name of the current pipe if different from the branch name.

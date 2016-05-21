@@ -1,4 +1,7 @@
 # -*- mode: sh -*-
+#
+# Linux containers utility functions.
+#
 
 #
 # Return the type of container of the host (or empty string if it's not a

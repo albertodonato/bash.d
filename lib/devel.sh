@@ -1,4 +1,7 @@
 # -*- mode: sh -*-
+#
+# Utility functions for development.
+# 
 
 #
 # Delete files ending with a tilde in specified tree (by default the current
