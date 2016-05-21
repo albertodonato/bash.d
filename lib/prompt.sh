@@ -24,8 +24,8 @@
 #   Key/value elements (both static and hooks) are sorted alphabetically
 #
 
-declare -gA ps1_elements
-declare -gA ps1_info
+declare -gA _ps1_elements
+declare -gA _ps1_info
 
 #
 # Add or update a prompt element.
@@ -38,7 +38,7 @@ set_prompt_element() {
     local value="$3"
     [ "$value" ] || return
 
-    ps1_elements[$name]="$name:$(_term_color $color)$value$(_term_color)"
+    _ps1_elements[$name]="$name:$(_term_color_escape $color)$value$(_term_color_escape)"
     set_prompt
 }
 
@@ -48,7 +48,7 @@ set_prompt_element() {
 # Usage: unset_prompt_element <name>
 #
 unset_prompt_element() {
-    unset ps1_elements["$1"]
+    unset _ps1_elements["$1"]
 }
 
 #
@@ -63,9 +63,9 @@ set_prompt_info() {
     local prefix="$4"
     [ "$value" ] || return
 
-    value="$(_term_color $color)$value$(_term_color)"
+    value="$(_term_color_escape $color)$value$(_term_color_escape)"
     [ "$prefix" ] && value="$prefix:$value"
-    ps1_info[$name]="$value"
+    _ps1_info[$name]="$value"
     set_prompt
 }
 
@@ -75,7 +75,7 @@ set_prompt_info() {
 # Usage: unset_prompt_info <name>
 #
 unset_prompt_info() {
-    unset ps1_info["$1"]
+    unset _ps1_info["$1"]
 }
 
 #
@@ -87,7 +87,7 @@ set_prompt_hook() {
     local name="$1"
     local color="$2"
     local func="$3"
-    ps1_elements[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(_term_color $color)\$value$(_term_color)\"; }; f)"
+    _ps1_elements[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(_term_color_escape $color)\$value$(_term_color_escape)\"; }; f)"
     set_prompt
 }
 
@@ -96,15 +96,15 @@ set_prompt_hook() {
 #
 # By default, exended prompt is used.
 #
-# Usage; set_prompt [basic|extended]
+# Usage: set_prompt [basic|extended]
 #
 set_prompt() {
-    local reset=$(_term_color)
-    local user="$(_term_color '1;49;33')"
-    local host="$(_term_color '1;49;34')"
-    local path="$(_term_color '5;49;32')"
-    local retval="$(_term_color '0;49;31')"
-    local prompt="$(_term_color '1;49;90')"
+    local reset=$(term_color_reset)
+    local user="$(term_color solarized.yellow)"
+    local host="$(term_color solarized.violet)"
+    local path="$(term_color solarized.green)"
+    local retval="$(term_color solarized.red)"
+    local prompt="$(term_color solarized.base1)"
 
     local ps1
     case $1 in
@@ -119,21 +119,21 @@ set_prompt() {
             local key keys
 
             # add info elements
-            keys="$(echo ${!ps1_info[@]} | sed 's/ /\n/g' | sort)"
+            keys="$(echo ${!_ps1_info[@]} | sed 's/ /\n/g' | sort)"
             local info
             for key in $keys; do
                 [ "$info" ] && info+="|"
-                info+="${ps1_info[$key]}"
+                info+="${_ps1_info[$key]}"
             done
             [ "$info" ] && ps1+=" [$info]"
 
             # add keyed elements
-            keys="$(echo ${!ps1_elements[@]} | sed 's/ /\n/g' | sort)"
+            keys="$(echo ${!_ps1_elements[@]} | sed 's/ /\n/g' | sort)"
             for key in $keys; do
-                [ "${ps1_elements[$key]}" ] && ps1+=" ${ps1_elements[$key]}"
+                [ "${_ps1_elements[$key]}" ] && ps1+=" ${_ps1_elements[$key]}"
             done
 
-            # input goes on a new line 
+            # input goes on a new line
             ps1+="\n${prompt}\$${reset} "
             ;;
     esac
@@ -147,11 +147,4 @@ set_prompt() {
     esac
 
     PS1="$termtitle$ps1"
-}
-
-_term_color() {
-    local color="0"
-    [ "$1" ] && color="$1"
-
-    echo "\\[\\033[${color}m\\]"
 }
