@@ -2,14 +2,17 @@
 #
 # Prompt-related functions.
 #
-# Two prompt formats are currently supported (as arguments to 'set_prompt'):
+# Three prompt formats are currently supported (as arguments to 'set_prompt'):
 #
 # - basic:
-#    user@host /current/path $
+#    $ _
 #
-# - extended:
+# - normal:
+#    user@host /current/path $ _
+#
+# - extended (default):
 #    R user@host /current/path [info|...] elem:val... hook:val ...
-#    $
+#    $ _
 #
 #   where elements are as follows:
 #    * R: the return vlaue of the previous command
