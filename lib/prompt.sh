@@ -106,6 +106,9 @@ set_prompt() {
     local ps1
     case $1 in
         basic)
+            ps1="${prompt}\$${reset} "
+            ;;
+        normal)
             ps1="${user}\u${host}@\h ${path}\w ${prompt}\$${reset} "
             ;;
         extended|*)
