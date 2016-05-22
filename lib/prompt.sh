@@ -100,11 +100,11 @@ set_prompt_hook() {
 #
 set_prompt() {
     local reset=$(term_color_reset)
-    local user="$(term_color solarized.yellow)"
-    local host="$(term_color solarized.violet)"
-    local path="$(term_color solarized.green)"
-    local retval="$(term_color solarized.red)"
-    local prompt="$(term_color solarized.base1)"
+    local user="$(term_color yellow)"
+    local host="$(term_color blue)"
+    local path="$(term_color green)"
+    local retval="$(term_color red)"
+    local prompt="$(term_color gray)"
 
     local ps1
     case $1 in

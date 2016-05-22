@@ -4,6 +4,16 @@
 #
 
 declare -gA _term_colors=(
+    # Base colors
+    [gray]='1;49;90'
+    [red]='0;49;91'
+    [green]='5;49;92'
+    [yellow]='0;49;93'
+    [blue]='0;49;94'
+    [magenta]='0;49;95'
+    [cyan]='0;49;96'
+    [white]='0;49;96'
+    # Solarized color theme
     [solarized.base03]='38;5;234'
     [solarized.base02]='38;5;235'
     [solarized.base01]='38;5;240'
@@ -18,13 +28,6 @@ declare -gA _term_colors=(
     [solarized.blue]='38;5;33'
     [solarized.cyan]='38;5;37'
     [solarized.green]='38;5;64'
-    [yellow]='1;49;33'
-    [blue]='1;49;34'
-    [green]='5;49;32'
-    [red]='0;49;31'
-    [darkred]='2;49;33'
-    [gray]='1;49;90'
-    [magenta]='1;49;35'
 )
 
 #
