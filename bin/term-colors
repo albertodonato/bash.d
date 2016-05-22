@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Print the 256 term colors.
+#
+
+for i in {0..255}; do
+    printf -v code "%3d" $i
+    echo -ne "\e[38;05;${i}m${code}\e[m  "
+    [ $((i % 8)) == 7 ] && echo
+done
