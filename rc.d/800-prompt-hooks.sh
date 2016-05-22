@@ -4,6 +4,6 @@
 #
 
 set_prompt extended
-set_prompt_info container '2;49;33' "$(container_type)"
-set_prompt_hook bzr '1;49;35' "bzr_pipe_if_different"
-set_prompt_hook git '1;49;35' "git rev-parse --abbrev-ref HEAD 2>/dev/null"
+set_prompt_info container darkred "$(container_type)"
+set_prompt_hook bzr magenta "bzr_pipe_if_different"
+set_prompt_hook git magenta "git rev-parse --abbrev-ref HEAD 2>/dev/null"

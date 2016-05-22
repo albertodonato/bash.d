@@ -38,7 +38,7 @@ set_prompt_element() {
     local value="$3"
     [ "$value" ] || return
 
-    _ps1_elements[$name]="$name:$(_term_color_escape $color)$value$(_term_color_escape)"
+    _ps1_elements[$name]="$name:$(term_color $color)$value$(term_color_reset)"
     set_prompt
 }
 
@@ -63,7 +63,7 @@ set_prompt_info() {
     local prefix="$4"
     [ "$value" ] || return
 
-    value="$(_term_color_escape $color)$value$(_term_color_escape)"
+    value="$(term_color $color)$value$(term_color_reset)"
     [ "$prefix" ] && value="$prefix:$value"
     _ps1_info[$name]="$value"
     set_prompt
@@ -87,7 +87,7 @@ set_prompt_hook() {
     local name="$1"
     local color="$2"
     local func="$3"
-    _ps1_elements[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(_term_color_escape $color)\$value$(_term_color_escape)\"; }; f)"
+    _ps1_elements[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color_reset)\"; }; f)"
     set_prompt
 }
 

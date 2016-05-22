@@ -43,7 +43,7 @@ ve() {
         return 2
     fi
 
-    set_prompt_info virtualenv '0;49;31' "$name" ve
+    set_prompt_info virtualenv red "$name" ve
     VIRTUAL_ENV_DISABLE_PROMPT=1 . "$activate"
 }
 
