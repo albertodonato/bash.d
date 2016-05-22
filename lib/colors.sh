@@ -58,5 +58,5 @@ term_color_reset() {
 # Print the escape for a specified term color.
 #
 _term_color_escape() {
-    echo -e "\e[${1}m"
+    echo "\\[\\033[${1}m\\]"
 }
