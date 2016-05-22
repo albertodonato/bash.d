@@ -58,8 +58,8 @@ term_color_reset() {
 # Print the escape for a specified term color.
 #
 _term_color_escape() {
-    local color="0"
-    [ "$1" ] && color="$1"
+    local color_code="0"
+    [ "$1" ] && color_code="$1"
 
-    echo "\\[\\033[${color}m\\]"
+    echo -e "\e[${color_code}m"
 }
