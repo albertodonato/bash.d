@@ -51,15 +51,12 @@ term_color() {
 # Reset color attributes.
 #
 term_color_reset() {
-    _term_color_escape
+    _term_color_escape 0
 }
 
 #
 # Print the escape for a specified term color.
 #
 _term_color_escape() {
-    local color_code="0"
-    [ "$1" ] && color_code="$1"
-
-    echo -e "\e[${color_code}m"
+    echo -e "\e[${1}m"
 }
