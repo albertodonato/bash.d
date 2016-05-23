@@ -99,7 +99,7 @@ set_prompt_hook() {
 # Usage: set_prompt [basic|extended]
 #
 set_prompt() {
-    local reset=$(term_color_reset)
+    local reset="$(term_color_reset)"
     local user="$(term_color lightyellow)"
     local host="$(term_color lightblue)"
     local path="$(term_color lightgreen)"
