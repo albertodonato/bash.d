@@ -11,45 +11,19 @@
 #    user@host /current/path $ _
 #
 # - extended (default):
-#    R user@host /current/path [info|...] elem:val... hook:val ...
+#    R user@host /current/path [info|...] key:val ...
 #    $ _
 #
 #   where elements are as follows:
 #    * R: the return vlaue of the previous command
 #    * info: indicator strings that can be added/removed manually
-#    * elem: sequence of key:value elements
-#    * hook: sequence of key:value elements where the value is computed at each
-#       run by calling the provided function
-#
-#   Key/value elements (both static and hooks) are sorted alphabetically
+#    * key:val: sequence of key/value elements where the value is computed at
+#       each run by calling the provided function. These are sorted
+#       alpabetically by key
 #
 
 declare -gA _ps1_elements
 declare -gA _ps1_info
-
-#
-# Add or update a prompt element.
-#
-# Usage: set_prompt_element <name> <color> <value>
-#
-set_prompt_element() {
-    local name="$1"
-    local color="$2"
-    local value="$3"
-    [ "$value" ] || return
-
-    _ps1_elements[$name]="$name:$(term_color $color)$value$(term_color_reset)"
-    set_prompt
-}
-
-#
-# Unset the prompt element with the specified name.
-#
-# Usage: unset_prompt_element <name>
-#
-unset_prompt_element() {
-    unset _ps1_elements["$1"]
-}
 
 #
 # Set or update a flag in the prompt, optionally with a prefix.
@@ -89,6 +63,15 @@ set_prompt_hook() {
     local func="$3"
     _ps1_elements[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color_reset)\"; }; f)"
     set_prompt
+}
+
+#
+# Unset the prompt hook with the specified name.
+#
+# Usage: unset_prompt_hook <name>
+#
+unset_prompt_hook() {
+    unset _ps1_elements["$1"]
 }
 
 #
