@@ -10,7 +10,7 @@ diffstat_counts() {
 total_lines=0
 total_counts=(0 0 0 0)
 
-echo " lns  fls    +    -  +/- name"
+echo "lines files     +     -   +/- name"
 
 for pipe in $(bzr pipes | awk '{ print $NF; }'); do
     [ "$prev_pipe" ] && revspec=":pipe:$prev_pipe" || revspec="ancestor:"
@@ -30,12 +30,12 @@ for pipe in $(bzr pipes | awk '{ print $NF; }'); do
         done
     fi
 
-    printf "%4d %4d %4d %4d %4d %s\n" $lines ${counts[@]} $pipe
+    printf "%5d %5d %5d %5d %5d %s\n" $lines ${counts[@]} $pipe
 
     prev_pipe=$pipe
 done
 
-echo "                         --"
-printf "%4d %4d %4d %4d %4d total\n" $total_lines ${total_counts[@]}
+echo "                              --"
+printf "%5d %5d %5d %5d %5d total\n" $total_lines ${total_counts[@]}
 
 
