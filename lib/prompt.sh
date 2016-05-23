@@ -52,11 +52,11 @@ unset_prompt_element() {
 }
 
 #
-# Set or update a prompt info element, optionally with a prefix.
+# Set or update a flag in the prompt, optionally with a prefix.
 #
-# Usage: set_prompt_info <name> <color> <value> [prefix]
+# Usage: set_prompt_flag <name> <color> <value> [prefix]
 #
-set_prompt_info() {
+set_prompt_flag() {
     local name="$1"
     local color="$2"
     local value="$3"
@@ -70,11 +70,11 @@ set_prompt_info() {
 }
 
 #
-# Unset the prompt info element with the specified name.
+# Unset the prompt flag with the specified name.
 #
-# Usage: unset_prompt_info <name>
+# Usage: unset_prompt_flag <name>
 #
-unset_prompt_info() {
+unset_prompt_flag() {
     unset _ps1_info["$1"]
 }
 
