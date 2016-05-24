@@ -22,8 +22,8 @@
 #       alpabetically by key
 #
 
-declare -gA _prompt_flags=
-declare -gA _prompt_hooks=
+declare -gA _prompt_flags=()
+declare -gA _prompt_hooks=()
 
 #
 # Set or update a flag in the prompt, optionally with a prefix.
@@ -52,6 +52,13 @@ unset_prompt_flag() {
 }
 
 #
+# List prompt flags.
+#
+list_prompt_flags() {
+    echo ${!_prompt_flags[@]} | sed 's/ /\n/g' | sort
+}
+
+#
 # Set a dynamic prompt hook.
 #
 # Usage: set_prompt_hook <name> <color> <hook_function>
@@ -70,6 +77,13 @@ set_prompt_hook() {
 #
 unset_prompt_hook() {
     unset _prompt_hooks["$1"]
+}
+
+#
+# List prompt hooks.
+#
+list_prompt_hooks() {
+    echo ${!_prompt_hooks[@]} | sed 's/ /\n/g' | sort
 }
 
 #
@@ -116,23 +130,21 @@ set_prompt() {
 }
 
 _render_prompt_flags() {
-    local flags key keys
+    local flag flags
 
-    keys="$(echo ${!_prompt_flags[@]} | sed 's/ /\n/g' | sort)"
-    for key in $keys; do
+    for flag in $(list_prompt_flags); do
         [ "$flags" ] && flags+="|"
-        flags+="${_prompt_flags[$key]}"
+        flags+="${_prompt_flags[$flag]}"
     done
 
     [ "$flags" ] && echo " [$flags]"
 }
 
 _render_prompt_hooks() {
-    local prompt info key keys value
+    local prompt hook value
 
-     keys="$(echo ${!_prompt_hooks[@]} | sed 's/ /\n/g' | sort)"
-    for key in $keys; do
-        value="$(eval echo -e ${_prompt_hooks[$key]})"
+    for hook in $(list_prompt_hooks); do
+        value="$(eval echo -e ${_prompt_hooks[$hook]})"
         [ "$value" ] && prompt+=" $value"
     done
 
