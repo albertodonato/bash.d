@@ -22,8 +22,8 @@
 #       alpabetically by key
 #
 
-declare -gA _ps1_elements
-declare -gA _ps1_info
+declare -gA _prompt_flags=()
+declare -gA _prompt_hooks=()
 
 #
 # Set or update a flag in the prompt, optionally with a prefix.
@@ -37,9 +37,9 @@ set_prompt_flag() {
     local prefix="$4"
     [ "$value" ] || return
 
-    value="$(term_color $color)$value$(term_color_reset)"
+    value="$(prompt_color $color)$value$(prompt_color)"
     [ "$prefix" ] && value="$prefix:$value"
-    _ps1_info[$name]="$value"
+    _prompt_flags[$name]="$value"
     set_prompt
 }
 
@@ -49,7 +49,7 @@ set_prompt_flag() {
 # Usage: unset_prompt_flag <name>
 #
 unset_prompt_flag() {
-    unset _ps1_info["$1"]
+    unset _prompt_flags["$1"]
 }
 
 #
@@ -61,7 +61,7 @@ set_prompt_hook() {
     local name="$1"
     local color="$2"
     local func="$3"
-    _ps1_elements[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color_reset)\"; }; f)"
+    _prompt_hooks[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color)\"; }; f)"
     set_prompt
 }
 
@@ -71,7 +71,7 @@ set_prompt_hook() {
 # Usage: unset_prompt_hook <name>
 #
 unset_prompt_hook() {
-    unset _ps1_elements["$1"]
+    unset _prompt_hooks["$1"]
 }
 
 #
@@ -82,12 +82,12 @@ unset_prompt_hook() {
 # Usage: set_prompt [basic|extended]
 #
 set_prompt() {
-    local reset="$(term_color_reset)"
-    local user="$(term_color lightyellow)"
-    local host="$(term_color lightblue)"
-    local path="$(term_color lightgreen)"
-    local retval="$(term_color lightred)"
-    local prompt="$(term_color darkgray)"
+    local reset="$(prompt_color)"
+    local user="$(prompt_color lightyellow)"
+    local host="$(prompt_color lightblue)"
+    local path="$(prompt_color lightgreen)"
+    local retval="$(prompt_color lightred)"
+    local prompt="$(prompt_color darkgray)"
 
     local ps1
     case $1 in
@@ -99,23 +99,8 @@ set_prompt() {
             ;;
         extended|*)
             ps1="${retval}\$(printf '%3d' \$?) ${user}\u${host}@\h ${path}\w${reset}"
-            local key keys
-
-            # add info elements
-            keys="$(echo ${!_ps1_info[@]} | sed 's/ /\n/g' | sort)"
-            local info
-            for key in $keys; do
-                [ "$info" ] && info+="|"
-                info+="${_ps1_info[$key]}"
-            done
-            [ "$info" ] && ps1+=" [$info]"
-
-            # add keyed elements
-            keys="$(echo ${!_ps1_elements[@]} | sed 's/ /\n/g' | sort)"
-            for key in $keys; do
-                [ "${_ps1_elements[$key]}" ] && ps1+=" ${_ps1_elements[$key]}"
-            done
-
+            ps1+="$(_render_prompt_flags)"
+            ps1+="\$(_render_prompt_hooks)"
             # input goes on a new line
             ps1+="\n${prompt}\$${reset} "
             ;;
@@ -130,4 +115,28 @@ set_prompt() {
     esac
 
     PS1="$termtitle$ps1"
+}
+
+_render_prompt_flags() {
+    local flags key keys
+
+    keys="$(echo ${!_prompt_flags[@]} | sed 's/ /\n/g' | sort)"
+    for key in $keys; do
+        [ "$flags" ] && flags+="|"
+        flags+="${_prompt_flags[$key]}"
+    done
+
+    [ "$flags" ] && echo " [$flags]"
+}
+
+_render_prompt_hooks() {
+    local prompt info key keys value
+
+     keys="$(echo ${!_prompt_hooks[@]} | sed 's/ /\n/g' | sort)"
+    for key in $keys; do
+        value="$(eval echo -e ${_prompt_hooks[$key]})"
+        [ "$value" ] && prompt+=" $value"
+    done
+
+    echo -e "$prompt"
 }

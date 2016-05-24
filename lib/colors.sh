@@ -1,9 +1,9 @@
 # -*- mode: sh -*-
 #
-# Helper functions for coloring escape codes.
+# Helper functions for terminal color escape codes.
 #
 
-declare -gA _term_colors=(
+declare -gA _colors=(
     # Base colors
     [black]='38;5;0'
     [red]='38;5;1'
@@ -42,21 +42,26 @@ declare -gA _term_colors=(
 # Return the escape string for a color name or code. 
 #
 term_color() {
-    local escape=${_term_colors[$1]}
+    local code
+
+    [ "$1" ] && code=$(_get_color_code "$1") || code=0
+
+    echo -ne "\e[${code}m"
+}
+
+#
+# Return the escape string for a prompt color.
+#
+prompt_color() {
+    local code
+
+    [ "$1" ] && code=$(_get_color_code "$1") || code=0
+
+    echo -n "\\[\\033[${code}m\\]"
+}
+
+_get_color_code() {
+    local escape="${_colors[$1]}"
     [ "$escape" ] || escape=$1
-    _term_color_escape $escape
-}
-
-#
-# Reset color attributes.
-#
-term_color_reset() {
-    _term_color_escape 0
-}
-
-#
-# Print the escape for a specified term color.
-#
-_term_color_escape() {
-    echo "\\[\\033[${1}m\\]"
+    echo "$escape"
 }
