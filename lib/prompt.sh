@@ -22,8 +22,8 @@
 #       alpabetically by key
 #
 
-declare -gA _prompt_flags=()
-declare -gA _prompt_hooks=()
+declare -gA _prompt_flags=
+declare -gA _prompt_hooks=
 
 #
 # Set or update a flag in the prompt, optionally with a prefix.
@@ -37,10 +37,9 @@ set_prompt_flag() {
     local prefix="$4"
     [ "$value" ] || return
 
-    value="$(prompt_color $color)$value$(prompt_color)"
+    value="$(term_color $color)$value$(term_color)"
     [ "$prefix" ] && value="$prefix:$value"
     _prompt_flags[$name]="$value"
-    set_prompt
 }
 
 #
@@ -62,7 +61,6 @@ set_prompt_hook() {
     local color="$2"
     local func="$3"
     _prompt_hooks[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color)\"; }; f)"
-    set_prompt
 }
 
 #
@@ -99,7 +97,7 @@ set_prompt() {
             ;;
         extended|*)
             ps1="${retval}\$(printf '%3d' \$?) ${user}\u${host}@\h ${path}\w${reset}"
-            ps1+="$(_render_prompt_flags)"
+            ps1+="\$(_render_prompt_flags)"
             ps1+="\$(_render_prompt_hooks)"
             # input goes on a new line
             ps1+="\n${prompt}\$${reset} "
