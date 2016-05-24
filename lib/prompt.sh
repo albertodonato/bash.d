@@ -67,7 +67,7 @@ set_prompt_hook() {
     local name="$1"
     local color="$2"
     local func="$3"
-    _prompt_hooks[$name]="\$(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color)\"; }; f)"
+    _prompt_hooks[$name]="(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color)\"; }; f)"
 }
 
 #
@@ -144,7 +144,7 @@ _render_prompt_hooks() {
     local prompt hook value
 
     for hook in $(list_prompt_hooks); do
-        value="$(eval echo -e ${_prompt_hooks[$hook]})"
+        value="$(eval ${_prompt_hooks[$hook]})"
         [ "$value" ] && prompt+=" $value"
     done
 
