@@ -3,7 +3,7 @@
 # Hooks for setting prompt elements
 #
 
-set_prompt_flag container yellow "$(container_type)"
-set_prompt_hook bzr lightmagenta "bzr_pipe_if_different"
-set_prompt_hook git lightmagenta "git rev-parse --abbrev-ref HEAD 2>/dev/null"
-set_prompt extended
+prompt_set_flag container yellow "$(container_type)"
+prompt_set_hook bzr lightmagenta "bzr_pipe_if_different"
+prompt_set_hook git lightmagenta "git rev-parse --abbrev-ref HEAD 2>/dev/null"
+prompt_set extended
