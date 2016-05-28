@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Print the 256 term colors.
+# Print the 256 terminal colors.
 #
 
 for i in {0..255}; do
