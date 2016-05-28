@@ -52,8 +52,8 @@ set_prompt_flag() {
 #
 unset_prompt_flag() {
     unset _prompt_flags["$1"]
-    unset _prompt_flag_colors["$1"]
     unset _prompt_flag_prefixes["$1"]
+    unset _prompt_flag_colors["$1"]
 }
 
 #
@@ -72,7 +72,8 @@ set_prompt_hook() {
     local name="$1"
     local color="$2"
     local func="$3"
-    _prompt_hooks[$name]="(f() { local value=\"\$($func)\"; [ \"\$value\" ] && echo \"$name:$(term_color $color)\$value$(term_color)\"; }; f)"
+    _prompt_hooks[$name]="$func"
+    _prompt_hook_colors[$name]="$color"
 }
 
 #
@@ -82,6 +83,7 @@ set_prompt_hook() {
 #
 unset_prompt_hook() {
     unset _prompt_hooks["$1"]
+    unset _prompt_hook_colors["$1"]
 }
 
 #
@@ -135,34 +137,43 @@ set_prompt() {
 }
 
 _render_prompt_flags() {
-    local flag flags
+    local name output
 
-    for flag in $(list_prompt_flags); do
-        [ "$flags" ] && flags+="|"
-        flags+="$(_render_prompt_flag $flag)"
+    for name in $(list_prompt_flags); do
+        [ "$output" ] && output+="|"
+        output+="$(_render_prompt_flag $name)"
     done
 
-    [ "$flags" ] && echo " [$flags]"
+    [ "$output" ] && echo " [$output]"
 }
 
 _render_prompt_flag() {
-    local flag=$1
-    local prefix=${_prompt_flag_prefixes[$flag]}
-    local color=${_prompt_flag_colors[$flag]}
-    local value=${_prompt_flags[$flag]}
+    local name="$1"
+    local prefix="${_prompt_flag_prefixes[$name]}"
+    local color="${_prompt_flag_colors[$name]}"
+    local value="${_prompt_flags[$name]}"
 
-    local text="$(term_color $color)$value$(term_color)"
-    [ "$prefix" ] && text="$prefix:$text"
-    echo "$text"
+    local output="$(term_color $color)$value$(term_color)"
+    [ "$prefix" ] && output="$prefix:$output"
+    echo "$output"
 }
 
 _render_prompt_hooks() {
-    local prompt hook value
+    local output name value
 
-    for hook in $(list_prompt_hooks); do
-        value="$(eval ${_prompt_hooks[$hook]})"
-        [ "$value" ] && prompt+=" $value"
+    for name in $(list_prompt_hooks); do
+        value="$(_render_prompt_hook $name)"
+        [ "$value" ] && output+=" $value"
     done
 
-    echo -e "$prompt"
+    echo -e "$output"
+}
+
+_render_prompt_hook() {
+    local name="$1"
+    local color="${_prompt_hook_colors[$name]}"
+    local func="${_prompt_hooks[$name]}"
+
+    local output="$(eval $func)"
+    [ "$output" ] && echo "$name:$(term_color $color)$output$(term_color)"
 }
