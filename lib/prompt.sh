@@ -23,7 +23,10 @@
 #
 
 declare -gA _prompt_flags=()
+declare -gA _prompt_flag_prefixes=()
+declare -gA _prompt_flag_colors=()
 declare -gA _prompt_hooks=()
+declare -gA _prompt_hook_colors=()
 
 #
 # Set or update a flag in the prompt, optionally with a prefix.
@@ -37,9 +40,9 @@ set_prompt_flag() {
     local prefix="$4"
     [ "$value" ] || return
 
-    value="$(term_color $color)$value$(term_color)"
-    [ "$prefix" ] && value="$prefix:$value"
     _prompt_flags[$name]="$value"
+    _prompt_flag_prefixes[$name]="$prefix"
+    _prompt_flag_colors[$name]="$color"
 }
 
 #
@@ -49,6 +52,8 @@ set_prompt_flag() {
 #
 unset_prompt_flag() {
     unset _prompt_flags["$1"]
+    unset _prompt_flag_colors["$1"]
+    unset _prompt_flag_prefixes["$1"]
 }
 
 #
@@ -134,10 +139,21 @@ _render_prompt_flags() {
 
     for flag in $(list_prompt_flags); do
         [ "$flags" ] && flags+="|"
-        flags+="${_prompt_flags[$flag]}"
+        flags+="$(_render_prompt_flag $flag)"
     done
 
     [ "$flags" ] && echo " [$flags]"
+}
+
+_render_prompt_flag() {
+    local flag=$1
+    local prefix=${_prompt_flag_prefixes[$flag]}
+    local color=${_prompt_flag_colors[$flag]}
+    local value=${_prompt_flags[$flag]}
+
+    local text="$(term_color $color)$value$(term_color)"
+    [ "$prefix" ] && text="$prefix:$text"
+    echo "$text"
 }
 
 _render_prompt_hooks() {
