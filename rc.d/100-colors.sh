@@ -1,15 +1,18 @@
 # -*- mode: sh -*-
 #
-# Terminal colors
+# Terminal colors.
 #
 
 eval $(dircolors)
 
-# less colors
-export LESS_TERMCAP_mb=$'\E[1;31m'        # begin blinking
-export LESS_TERMCAP_md=$'\E[1;38;5;74m'   # begin bold
-export LESS_TERMCAP_so=$'\E[1;31;246m'    # begin standout-mode
-export LESS_TERMCAP_us=$'\E[4;38;5;146m'  # begin underline
-export LESS_TERMCAP_ue=$'\E[0m'           # end underline
-export LESS_TERMCAP_me=$'\E[0m'           # end mode
-export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+# Colors for less
+# blink/bold
+export LESS_TERMCAP_mb="$(term_color yellow bold)"
+export LESS_TERMCAP_md="$(term_color white bold)"
+export LESS_TERMCAP_me="$(term_color)"
+# standout
+export LESS_TERMCAP_so="$(term_color red bold)"
+export LESS_TERMCAP_se="$(term_color)"
+# underline
+export LESS_TERMCAP_us="$(term_color white underline)"
+export LESS_TERMCAP_ue="$(term_color)"

@@ -44,7 +44,7 @@ declare -gA _colors=(
 term_color() {
     local code
 
-    [ "$1" ] && code=$(_get_color_code "$1") || code=0
+    [ "$1" ] && code=$(_get_color_code "$@") || code=0
 
     echo -ne "\e[${code}m"
 }
@@ -55,13 +55,28 @@ term_color() {
 prompt_color() {
     local code
 
-    [ "$1" ] && code=$(_get_color_code "$1") || code=0
+    [ "$1" ] && code=$(_get_color_code "$@") || code=0
 
     echo -n "\\[\\033[${code}m\\]"
 }
 
 _get_color_code() {
-    local escape="${_colors[$1]}"
-    [ "$escape" ] || escape=$1
+    local value="$1"
+    local modifier="$2"
+    local -A modifiers=(
+        [bold]='1'
+        [dim]='2'
+        [reverse]='3'
+        [underline]='4'
+    )
+    local escape="${_colors[$value]}"
+
+    if [ "$escape" ]; then
+        # value is a color number, possibly add modifier
+        [ "$modifier" ] && escape="${modifiers[$modifier]};$escape"
+    else
+        # value is a plain code
+        escape="$value"
+    fi
     echo "$escape"
 }
