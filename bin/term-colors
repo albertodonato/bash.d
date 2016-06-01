@@ -3,8 +3,18 @@
 # Print the 256 terminal colors.
 #
 
+declare -A modifiers=(
+    [bold]='1'
+    [dim]='2'
+    [reverse]='3'
+    [underline]='4'
+)
+
+[ "$1" ] && modifier="${modifiers[$1]}"
+[ "$modifier" ] && prefix="$modifier;"
+
 for i in {0..255}; do
     printf -v code "%3d" $i
-    echo -ne "\e[38;05;${i}m${code}\e[m  "
+    echo -ne "\e[${prefix}38;05;${i}m${code}\e[m  "
     [ $((i % 8)) == 7 ] && echo
 done
