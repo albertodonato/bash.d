@@ -102,11 +102,11 @@ prompt_list_hooks() {
 #
 prompt_set() {
     local reset="$(prompt_color)"
-    local user="$(prompt_color lightyellow)"
-    local host="$(prompt_color lightblue)"
-    local path="$(prompt_color lightgreen)"
-    local retval="$(prompt_color lightred)"
-    local prompt="$(prompt_color darkgray)"
+    local user="$(prompt_color yellow)"
+    local host="$(prompt_color solarized.blue)"
+    local path="$(prompt_color solarized.green)"
+    local retval="$(prompt_color solarized.red)"
+    local prompt="$(prompt_color solarized.base0)"
 
     local ps1
     case $1 in
