@@ -110,6 +110,9 @@ prompt_set() {
 
     local ps1
     case $1 in
+        nocolor)
+            ps1="\u@\h \w \$ "
+            ;;
         basic)
             ps1="${prompt}\$${reset} "
             ;;
