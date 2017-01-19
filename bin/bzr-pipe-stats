@@ -3,6 +3,10 @@
 # Return a list of bzr pipes in the pipeline, with their diff size.
 #
 
+# The ancestor branch (by default will look at bzr config)
+ancestor="$1"
+
+
 diffstat_counts() {
     diffstat -s | awk 'END { print $1, $4+0, $6+0, $4 + $6; }'
 }
@@ -13,7 +17,13 @@ total_counts=(0 0 0 0)
 echo "lines files     +     -   +/- name"
 
 for pipe in $(bzr pipes | awk '{ print $NF; }'); do
-    [ "$prev_pipe" ] && revspec=":pipe:$prev_pipe" || revspec="ancestor:"
+
+    if [ "$prev_pipe" ]; then
+        revspec=":pipe:$prev_pipe"
+    else
+        revspec="ancestor:$ancestor"
+    fi
+
     revspec+="..:pipe:$pipe"
 
     tmpfile=$(mktemp)
@@ -37,5 +47,3 @@ done
 
 echo "                              --"
 printf "%5d %5d %5d %5d %5d total\n" $total_lines ${total_counts[@]}
-
-
