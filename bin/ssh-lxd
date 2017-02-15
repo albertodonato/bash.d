@@ -1,11 +1,7 @@
 #!/bin/bash
 #
-# Ssh to an LXC/LXD by name.
+# Ssh to a LXD container by name.
 #
-
-lxc_ip() {
-    sudo lxc-info --name $1 --ips | awk '{ print $2; exit; }'
-}
 
 lxd_ip() {
     lxc list $1 --columns=4 | awk '(NR == 4) { print $2; }'
@@ -13,10 +9,6 @@ lxd_ip() {
 
 
 hostname="$1"
-if [ "$2" ]; then
-    type="$2"
-    shift 1
-fi
 shift 1
 
 
@@ -25,8 +17,7 @@ if [ ! "$hostname" ]; then
     exit 1
 fi
 
-[ "$type" == "lxd" ] && ip_cmd="lxd_ip" || ip_cmd="lxc_ip"
-ip=$($ip_cmd "$hostname")
+ip=$(lxd_ip "$hostname")
 if [ ! "$ip" ]; then
     echo "Address not found"
     exit 2
