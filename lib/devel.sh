@@ -48,19 +48,20 @@ ve() {
 }
 
 #
-# Create a virtualenv with the specified name
+# Create a virtualenv with the specified name (and optionally version).
 #
-# Usage mkve <name> [option...]
+# Usage mkve <name> [python-version]
 #
 mkve() {
     if [ ! "$1" ]; then
         echo "Missing virtualenv name"
         return 1
     fi
+
     local dir="$HOME/virtualenv/$1"
-    shift 1
+    local version=${2:-"3.5"}
  
-    virtualenv "$dir" "$@"
+    virtualenv --python="python$version" "$dir" 
 }
 
 #
