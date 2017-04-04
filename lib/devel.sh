@@ -19,6 +19,7 @@ deltilde() {
 # Usage; delpyc [path]
 # 
 delpyc() {
+    find "$@" -type d -name __pycache__ | xargs rm -rf
     find "$@" -name \*.pyc -exec rm {} \;
 }
 
