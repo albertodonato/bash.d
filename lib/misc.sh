@@ -19,7 +19,7 @@ bool() {
 # Usage: is_interactive
 #
 is_interactive() {
-    echo $- | grep -q i
+    [[ $- == *i* ]]
 }
 
 
