@@ -41,16 +41,3 @@ s() {
         . "$sourcedir/$file"
     done
 }
-
-#
-# Autocomplete helper for the s() command.
-#
-if is_interactive; then
-    _s() {
-        local cur=${COMP_WORDS[COMP_CWORD]}
-        local sources="$(ls -1 $SYSTEM_DIR/source)"
-        COMPREPLY=( $(compgen -W "$sources" -- "$cur") )
-    }
-
-    complete -F _s s
-fi
