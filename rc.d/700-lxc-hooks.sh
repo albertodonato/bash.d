@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 #
-# Hook for LXC login setup
+# Hook for LXC/LXD login setup
 #
 
 if [ "$(container_type)" = "lxc" ]; then
