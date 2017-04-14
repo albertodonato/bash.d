@@ -5,4 +5,4 @@ if [ ! "$1" ]; then
     exit 1
 fi
 
-lxc list "$1" --columns=4 | awk '(NR == 4) { print $2; }'
+lxc list "$1" --columns=4 | awk '/eth0/ { print $2; }'
