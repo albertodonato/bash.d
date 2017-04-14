@@ -1,0 +1,34 @@
+#!/bin/bash -e
+#
+# Create a LXD with the specified name (and optionally ubuntu release) and
+# bind-mount current user's home directory.
+#
+
+scriptname="$(basename $0)"
+
+lxd_name="$1"
+release="${2:-xenial}"
+
+if [ -z "$lxd_name" ]; then
+    echo "Usage:  $scriptname <container-name> [ubuntu-release]"
+    exit 1
+fi
+
+subid_line="root:$UID:1"
+for file in /etc/subuid /etc/subgid; do
+    if grep -v "$subid_line" $file; then
+       echo "$subid_line" | sudo tee -a $file
+    fi
+done
+
+lxc init $release $lxd_name
+lxc config set $lxd_name raw.idmap "both 1000 1000"
+lxc config set $lxd_name boot.autostart	1
+lxc config device add $lxd_name homedir disk source=$HOME path=$HOME
+lxc start $lxd_name
+sleep 10
+lxc exec --verbose $lxd_name -- \
+    sed -i "s/^ubuntu:/$USER:/g; s,/home/ubuntu,$HOME,g" \
+    /etc/passwd /etc/shadow /etc/group /etc/gshadow
+lxc exec $lxd_name -- sed -i "s/ubuntu/$USER/g" \
+        /etc/sudoers.d/90-cloud-init-users
