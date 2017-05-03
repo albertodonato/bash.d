@@ -8,6 +8,9 @@
 PATH="$HOME/bin:$SYSTEM_DIR/bin:$SYSTEM_BASH_DIR/bin:$_PATH"
 PATH+=":$HOME/.local/bin"
 
+export GOPATH="$HOME/go"
+PATH+=":$GOPATH/bin"
+
 export HISTFILESIZE=100000
 
 export EDITOR="emacsclient -c -a vim"
