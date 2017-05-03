@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Pastebinit input and copies the resulting url to clipboard (if under tmux).
+#
+# Usage: pb [pastebinit options...]
+#
+
+copy_to_buffer() {
+    if [ "$TMUX" ]; then
+        tmux load-buffer -
+        tmux show-buffer | xclip -i -sel clipboard
+        tmux show-buffer  # to also print the URL
+        tmux delete-buffer
+    else
+        # no tmux, just print the resulting URL
+        cat
+    fi
+}
+
+pastebinit "$@" | copy_to_buffer
