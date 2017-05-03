@@ -2,7 +2,7 @@
 #
 # Pastebinit input and copies the resulting url to clipboard (if under tmux).
 #
-# Usage: pb [pastebinit options...]
+# Usage: <cmd> | pb [pastebinit options...]
 #
 
 copy_to_buffer() {
