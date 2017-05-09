@@ -22,6 +22,7 @@ alias ec="emacs -batch -f batch-byte-compile"
 
 alias ipy="ipython3"
 alias spy="python setup.py"
+alias pytree="tree -P \*\.py  -I test_\*\.py -I \*\.pyc -I \*\.pyo -I \*\.egg-info -I __pycache__"
 
 alias diffcount="diffstat -s | awk -F, '{ gsub(/[^0-9,]/, \"\"); print \$2+\$3; }'"
 
