@@ -26,4 +26,12 @@ if is_interactive; then
         COMPREPLY=( $(compgen -W "$sources" -- "$cur") )
     }
     complete -F _ssh_lxd ssh-lxd
+
+
+    _prompt_set() {
+        local cur=${COMP_WORDS[COMP_CWORD]}
+        local sources="basic normal nocolor extended"
+        COMPREPLY=( $(compgen -W "$sources" -- "$cur") )
+    }
+    complete -F _prompt_set prompt_set
 fi

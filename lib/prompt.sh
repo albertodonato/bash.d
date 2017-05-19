@@ -10,6 +10,11 @@
 # - normal:
 #    user@host /current/path $ _
 #
+# - nocolor
+#    user@host /current/path $ _
+#
+#   this is the same as "normal", but without colors
+#
 # - extended (default):
 #    R user@host /current/path [info|...] key:val ...
 #    $ _
