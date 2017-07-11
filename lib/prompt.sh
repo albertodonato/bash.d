@@ -10,7 +10,7 @@
 # - normal:
 #    user@host /current/path $ _
 #
-# - nocolor
+# - nocolor:
 #    user@host /current/path $ _
 #
 #   this is the same as "normal", but without colors

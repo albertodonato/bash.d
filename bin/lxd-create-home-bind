@@ -16,7 +16,7 @@ fi
 
 subid_line="root:$UID:1"
 for file in /etc/subuid /etc/subgid; do
-    if grep -v "$subid_line" $file; then
+    if ! grep -q "$subid_line" $file; then
        echo "$subid_line" | sudo tee -a $file
     fi
 done
