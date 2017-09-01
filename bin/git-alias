@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# List git aliases
+#
+
+git config --global -l | sed -n  's/^alias\.\([^=]\+\) *= *\(.*\)/\1 = \2/p' | sort
