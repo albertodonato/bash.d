@@ -13,7 +13,8 @@ PATH+=":$GOPATH/bin"
 
 export HISTFILESIZE=100000
 
-export EDITOR="emacsclient -c -a vim"
+export EDITOR="emacsclient -c"
+export ALTERNATE_EDITOR=""  # to start emacs server
 export LESS="-R"
 
 export EMAIL="alberto.donato@gmail.com"
