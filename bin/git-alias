@@ -1,6 +1,54 @@
 #!/bin/sh
 #
-# List git aliases
+# Manage git aliases.
 #
 
-git config --global -l | sed -n 's/^alias\.\([^=]\+\) *= *\(.*\)/\1 = \2/p' | sort
+usage() {
+    echo "Usage: $(basename $0)" "$@"
+    exit 1
+}
+
+
+add_alias() {
+    local alias="$1"
+    local command="$2"
+
+    if [ -z "$alias" ] || [ -z "$command" ]; then
+        usage "add <alias> <command>"
+    fi
+
+    git config --global --add "alias.$alias" "$command"
+
+}
+
+
+remove_alias() {
+    local alias="$1"
+
+    if [ -z "$alias" ]; then
+        usage "remove <alias>"
+    fi
+    git config --global --unset "alias.$alias"
+}
+
+
+
+list_aliases() {
+    git config --global -l | sed -n 's/^alias\.\([^=]\+\) *= *\(.*\)/\1 = \2/p' | sort
+}
+
+
+cmd="$1"
+[ "$cmd" ] && shift 1
+
+case "$cmd" in
+    add)
+        add_alias "$@"
+        ;;
+    remove)
+        remove_alias "$@"
+        ;;
+    *)
+        list_aliases
+        ;;
+esac
