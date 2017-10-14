@@ -14,6 +14,33 @@ bool() {
 
 
 #
+# Split directories in a PATH-like variable
+#
+# Usage: split_path_dirs [string]
+#
+split_path_dirs() {
+    echo "$1" | sed 's/:/\n/g'
+}
+
+
+#
+# Return whether a string is present in a list of strings
+#
+# Usage: contains_string [a-string] [strings...]
+#
+contains_string() {
+    local match="$1"
+    local s
+    for s in $2; do
+        if [ "$s" == "$match" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+
+#
 # Return whether the shell is interactive.
 #
 # Usage: is_interactive
