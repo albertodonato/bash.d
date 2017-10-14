@@ -60,7 +60,7 @@ mkve() {
     fi
 
     local dir="$HOME/virtualenv/$1"
-    local version=${2:-"3.5"}
+    local version=${2:-"3.6"}
  
     virtualenv --python="python$version" "$dir" 
 }
