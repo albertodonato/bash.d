@@ -25,7 +25,7 @@
 #    * key:val: sequence of key/value elements where the value is computed at
 #       each run by calling the provided function. These are sorted
 #       alpabetically by key
-#
+
 
 declare -gA _prompt_flags=()
 declare -gA _prompt_flag_prefixes=()
@@ -33,7 +33,7 @@ declare -gA _prompt_flag_colors=()
 declare -gA _prompt_hooks=()
 declare -gA _prompt_hook_colors=()
 
-#
+
 # Set or update a flag in the prompt, optionally with a prefix.
 #
 # Usage: prompt_set_flag <name> <color> <value> [prefix]
@@ -50,7 +50,7 @@ prompt_set_flag() {
     _prompt_flag_colors[$name]="$color"
 }
 
-#
+
 # Unset the prompt flag with the specified name.
 #
 # Usage: prompt_unset_flag <name>
@@ -61,14 +61,14 @@ prompt_unset_flag() {
     unset _prompt_flag_colors["$1"]
 }
 
-#
+
 # List prompt flags.
 #
 prompt_list_flags() {
     echo ${!_prompt_flags[@]} | sed 's/ /\n/g' | sort
 }
 
-#
+
 # Set a dynamic prompt hook.
 #
 # Usage: prompt_set_hook <name> <color> <hook_function>
@@ -81,7 +81,7 @@ prompt_set_hook() {
     _prompt_hook_colors[$name]="$color"
 }
 
-#
+
 # Unset the prompt hook with the specified name.
 #
 # Usage: prompt_unset_hook <name>
@@ -91,14 +91,14 @@ prompt_unset_hook() {
     unset _prompt_hook_colors["$1"]
 }
 
-#
+
 # List prompt hooks.
 #
 prompt_list_hooks() {
     echo ${!_prompt_hooks[@]} | sed 's/ /\n/g' | sort
 }
 
-#
+
 # Set prompt based on a profile.
 #
 # By default, the 'exended' profile is used is used.

@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Return the IP address of a LXD container.
+#
+# Usage: lxd-ip <name>
+
 
 if [ ! "$1" ]; then
     echo "Missing container name"

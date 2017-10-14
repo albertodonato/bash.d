@@ -1,7 +1,7 @@
 # -*- mode: sh -*-
 #
 # Hook for LXC/LXD login setup
-#
+
 
 if [ "$(container_type)" = "lxc" ]; then
     # Use the same ssh agent for all SSH connections.

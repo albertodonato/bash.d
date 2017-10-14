@@ -1,7 +1,7 @@
 # -*- mode: sh -*-
 #
 # Helper functions for terminal color escape codes.
-#
+
 
 declare -gA _colors=(
     # Base colors
@@ -40,7 +40,7 @@ declare -gA _colors=(
     [solarized.green]='38;5;64'
 )
 
-#
+
 # Return the escape string for a color name or code. 
 #
 term_color() {
@@ -51,7 +51,7 @@ term_color() {
     echo -ne "\e[${code}m"
 }
 
-#
+
 # Return the escape string for a prompt color.
 #
 prompt_color() {

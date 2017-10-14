@@ -1,9 +1,8 @@
 # -*- mode: sh -*-
 #
 # Utility functions for development.
-# 
 
-#
+
 # Delete files ending with a tilde in specified tree (by default the current
 # directory).
 #
@@ -13,17 +12,17 @@ deltilde() {
     find "$@" -name \*~ -exec rm {} \;
 }
 
-#
+
 # Delete .pyc files in specified tree (by default the current directory).
 #
 # Usage; delpyc [path]
 # 
 delpyc() {
-    find "$@" -type d -name __pycache__ | xargs rm -rf
+    find "$@" -type d -name __pycache__ -print0 | xargs --null rm -rf
     find "$@" -name \*.pyc -exec rm {} \;
 }
 
-#
+
 # Activate a python virtualenv. List available ones if no name is specified.
 #
 # Usage: ve [name]
@@ -48,7 +47,7 @@ ve() {
     VIRTUAL_ENV_DISABLE_PROMPT=1 . "$activate"
 }
 
-#
+
 # Create a virtualenv with the specified name (and optionally version).
 #
 # Usage mkve <name> [python-version]
@@ -65,7 +64,7 @@ mkve() {
     virtualenv --python="python$version" "$dir" 
 }
 
-#
+
 # Create a script with the specified name.
 #
 # Usage: shebang <filename> [shebang]

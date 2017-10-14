@@ -1,9 +1,8 @@
 # -*- mode: sh -*-
 #
 # Utility functions for Bazaar.
-#
 
-#
+
 # Return the name of the current pipe if different from the branch name.
 #
 # Usage: bzr_pipe_if_different [path]

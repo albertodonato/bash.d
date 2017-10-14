@@ -1,7 +1,7 @@
 # -*- mode: sh -*-
 #
 # Autocompletion configuration
-#
+
 
 if is_interactive; then
     source_if_exists /etc/bash_completion

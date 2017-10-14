@@ -1,7 +1,7 @@
 # -*- mode: sh -*-
 #
 # Terminal colors.
-#
+
 
 eval $(dircolors)
 

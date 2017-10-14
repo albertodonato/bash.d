@@ -1,9 +1,8 @@
 # -*- mode: sh -*-
 #
 # Miscellaneous shell-related functions.
-#
 
-#
+
 # Print boolean value of the exit code of the command passed as argument.
 #
 # Usage: bool [command args...]
@@ -13,8 +12,7 @@ bool() {
 }
 
 
-#
-# Split directories in a PATH-like variable
+# Split directories in a PATH-like variable.
 #
 # Usage: split_path_dirs [string]
 #
@@ -23,8 +21,7 @@ split_path_dirs() {
 }
 
 
-#
-# Return whether a string is present in a list of strings
+# Return whether a string is present in a list of strings.
 #
 # Usage: contains_string [a-string] [strings...]
 #
@@ -40,7 +37,6 @@ contains_string() {
 }
 
 
-#
 # Return whether the shell is interactive.
 #
 # Usage: is_interactive
@@ -50,7 +46,6 @@ is_interactive() {
 }
 
 
-#
 # Source a system file.
 # If no filename is given, list the available names.
 #

@@ -2,7 +2,7 @@
 #
 # Create a LXD with the specified name (and optionally ubuntu release) and
 # bind-mount current user's home directory.
-#
+
 
 scriptname="$(basename $0)"
 

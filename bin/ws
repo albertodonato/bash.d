@@ -3,7 +3,7 @@
 # Serve the specified path (by default the current directory) via HTTP.
 #
 # Usage: ws [directory] [options...]
-#
+
 
 dir="$PWD"
 if [ -d "$1" ]; then
@@ -11,4 +11,4 @@ if [ -d "$1" ]; then
     shift 1
 fi
 
-(cd "$dir"; python3 -m http.server "$@")
+(cd "$dir" || exit 1; python3 -m http.server "$@")

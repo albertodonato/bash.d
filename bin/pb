@@ -3,7 +3,7 @@
 # Pastebinit input and copies the resulting url to clipboard (if under tmux).
 #
 # Usage: <cmd> | pb [pastebinit options...]
-#
+
 
 copy_to_buffer() {
     if [ "$TMUX" ]; then

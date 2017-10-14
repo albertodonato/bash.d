@@ -1,7 +1,7 @@
 # -*- mode: sh -*-
 #
 # Entry point for bash configuration
-#
+
 
 SYSTEM_DIR=$HOME/system
 SYSTEM_BASH_DIR=$SYSTEM_DIR/bash.d

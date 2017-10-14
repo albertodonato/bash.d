@@ -1,7 +1,7 @@
 # -*- mode: sh -*-
 #
 # Hooks for setting prompt elements
-#
+
 
 prompt_set_flag container solarized.yellow "$(container_type)"
 prompt_set_hook bzr solarized.orange "bzr_pipe_if_different"
