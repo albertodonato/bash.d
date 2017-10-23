@@ -59,9 +59,14 @@ mkve() {
     fi
 
     local dir="$HOME/virtualenv/$1"
-    local version=${2:-"3.6"}
+    local version="$2"
+    local interpreter="python${version}"
+
+    if [ -z "$version" ]; then
+        interpreter="$(ls /usr/bin/python?.? | sort -r | head -1)"
+    fi
  
-    virtualenv --python="python$version" "$dir" 
+    echo virtualenv --python="$interpreter" "$dir"
 }
 
 
