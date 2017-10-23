@@ -66,7 +66,7 @@ mkve() {
         interpreter="$(ls /usr/bin/python?.? | sort -r | head -1)"
     fi
  
-    echo virtualenv --python="$interpreter" "$dir"
+    virtualenv --python="$interpreter" "$dir"
 }
 
 
