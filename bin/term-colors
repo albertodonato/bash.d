@@ -14,7 +14,9 @@ declare -A modifiers=(
 [ "$modifier" ] && prefix="$modifier;"
 
 for i in {0..255}; do
-    printf -v code "%3d" $i
-    echo -ne "\e[${prefix}38;05;${i}m${code}\e[m  "
+    printf -v code "%03d" $i
+    echo -ne "\e[${prefix}38;05;${code}m"
+    echo -n "\e[${prefix}38;05;${code}m"
+    echo -ne "\e[m  "
     [ $((i % 8)) == 7 ] && echo
 done
