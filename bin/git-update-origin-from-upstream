@@ -1,0 +1,39 @@
+#!/bin/sh
+# shellcheck disable=SC2039
+#
+# Fetch remotes and and update a branch from the origin one (master by
+# default).
+
+
+BRANCH="${1:-master}"
+
+check_remote_exists() {
+    local remote="$1"
+    if ! git remote | grep -q "^$remote"; then
+        echo "Remote $remote not found"
+        exit 1
+    fi        
+}
+
+current_branch() {
+    git rev-parse --abbrev-ref HEAD
+}
+
+
+if ! git status >/dev/null 2>&1; then
+    echo "Not a git repo?"
+    exit 1
+fi
+
+check_remote_exists origin
+check_remote_exists upstream
+
+git fetch --tags upstream
+
+if [ "$(current_branch)" = "$BRANCH" ]; then
+    git pull upstream "$BRANCH"
+else
+    git branch -f "$BRANCH" "upstream/$BRANCH"
+fi
+
+git push -u --tags origin "$BRANCH"
