@@ -1,11 +1,12 @@
 #!/bin/sh
 # shellcheck disable=SC2039
 #
-# Fetch remotes and and update a branch from the origin one (master by
-# default).
+# Fetch remotes and and update a branch (master by default) from the upstream
+# remote.
 
 
 BRANCH="${1:-master}"
+ORIGIN_REMOTE="${2:-origin}"
 
 check_remote_exists() {
     local remote="$1"
@@ -25,7 +26,7 @@ if ! git status >/dev/null 2>&1; then
     exit 1
 fi
 
-check_remote_exists origin
+check_remote_exists "$ORIGIN_REMOTE"
 check_remote_exists upstream
 
 git fetch --tags upstream
@@ -36,4 +37,4 @@ else
     git branch -f "$BRANCH" "upstream/$BRANCH"
 fi
 
-git push -u --tags origin "$BRANCH"
+git push -u --tags "$ORIGIN" "$BRANCH"
