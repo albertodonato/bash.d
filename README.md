@@ -3,16 +3,17 @@
 My own Bash shell configuration.
 
 The entry point is the `bashrc` file in the top directory, which can be just
-sourced from `~/.bashrc`.
+sourced from (or copied as) `~/.bashrc`.
 
-There are 3 subdirectories:
+The repository consists of the following directories:
 
-- `bin`, which contains standalone scripts
+- `bin`: contains standalone scripts.
 
-- `lib`, contains files with helper functions. These are automatically made
-  available in the shell, and can be also sourced in other scripts.
+- `lib`: contains files with helper functions. These are automatically made
+  available in the shell, and can be also sourced in other scripts. The path of
+  the directory is available as `$SYSTEM_SH_LIB_DIR`.
 
-- `rc.d`, actual bash configuration (environment variables, aliases, ...),
-  these are basically what goes in `.bashrc`, split in different files. Files
+- `rc.d`: actual bash configuration (environment variables, aliases, ...),
+  these are basically what goes in `.bashrc`, split in different files.  Files
   in this directory are automatically sourced at shell startup in alphabetic
   order.
