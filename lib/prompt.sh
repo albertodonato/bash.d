@@ -1,4 +1,5 @@
 # -*- mode: sh -*-
+# shellcheck disable=SC2039
 #
 # Prompt-related functions.
 #
@@ -33,16 +34,13 @@ declare -gA _prompt_flag_colors=()
 declare -gA _prompt_hooks=()
 declare -gA _prompt_hook_colors=()
 
-
 # Set or update a flag in the prompt, optionally with a prefix.
-#
-# Usage: prompt_set_flag <name> <color> <value> [prefix]
-#
 prompt_set_flag() {
     local name="$1"
     local color="$2"
     local value="$3"
     local prefix="$4"
+
     [ "$value" ] || return
 
     _prompt_flags[$name]="$value"
@@ -50,71 +48,64 @@ prompt_set_flag() {
     _prompt_flag_colors[$name]="$color"
 }
 
-
 # Unset the prompt flag with the specified name.
-#
-# Usage: prompt_unset_flag <name>
-#
 prompt_unset_flag() {
-    unset _prompt_flags["$1"]
-    unset _prompt_flag_prefixes["$1"]
-    unset _prompt_flag_colors["$1"]
-}
+    local name="$1"
 
+    unset _prompt_flags["$name"]
+    unset _prompt_flag_prefixes["$name"]
+    unset _prompt_flag_colors["$name"]
+}
 
 # List prompt flags.
-#
 prompt_list_flags() {
-    echo ${!_prompt_flags[@]} | sed 's/ /\n/g' | sort
+    echo "${!_prompt_flags[@]}" | sed 's/ /\n/g' | sort
 }
 
-
 # Set a dynamic prompt hook.
-#
-# Usage: prompt_set_hook <name> <color> <hook_function>
-#
 prompt_set_hook() {
     local name="$1"
     local color="$2"
     local func="$3"
+
     _prompt_hooks[$name]="$func"
     _prompt_hook_colors[$name]="$color"
 }
 
-
 # Unset the prompt hook with the specified name.
-#
-# Usage: prompt_unset_hook <name>
-#
 prompt_unset_hook() {
-    unset _prompt_hooks["$1"]
-    unset _prompt_hook_colors["$1"]
-}
+    local name="$1"
 
+    unset _prompt_hooks["$name"]
+    unset _prompt_hook_colors["$name"]
+}
 
 # List prompt hooks.
-#
 prompt_list_hooks() {
-    echo ${!_prompt_hooks[@]} | sed 's/ /\n/g' | sort
+    echo "${!_prompt_hooks[@]}" | sed 's/ /\n/g' | sort
 }
-
 
 # Set prompt based on a profile.
 #
+# Available profiles are:
+#  - basic
+#  - normal
+#  - extended
+#
 # By default, the 'exended' profile is used is used.
-#
-# Usage: prompt_set [basic|normal|extended]
-#
 prompt_set() {
-    local reset="$(prompt_color)"
-    local user="$(prompt_color yellow)"
-    local host="$(prompt_color solarized.blue)"
-    local path="$(prompt_color solarized.green)"
-    local retval="$(prompt_color solarized.red)"
-    local prompt="$(prompt_color solarized.base0)"
+    local prompt_type="$1"
+
+    local reset user host path retval prompt
+    reset="$(prompt_color)"
+    user="$(prompt_color yellow)"
+    host="$(prompt_color solarized.blue)"
+    path="$(prompt_color solarized.green)"
+    retval="$(prompt_color solarized.red)"
+    prompt="$(prompt_color solarized.base0)"
 
     local ps1
-    case $1 in
+    case "$prompt_type" in
         nocolor)
             ps1="\u@\h \w \$ "
             ;;
@@ -149,7 +140,7 @@ _prompt_render_flags() {
 
     for name in $(prompt_list_flags); do
         [ "$output" ] && output+="|"
-        output+="$(_prompt_render_flag $name)"
+        output+=$(_prompt_render_flag "$name")
     done
 
     [ "$output" ] && echo " [$output]"
@@ -157,11 +148,13 @@ _prompt_render_flags() {
 
 _prompt_render_flag() {
     local name="$1"
+
+    local color_code output
     local prefix="${_prompt_flag_prefixes[$name]}"
     local color="${_prompt_flag_colors[$name]}"
     local value="${_prompt_flags[$name]}"
-
-    local output="$(term_color $color)$value$(term_color)"
+    color_code=$(term_color "$color")
+    output="$color_code$value$(term_color)"
     [ "$prefix" ] && output="$prefix:$output"
     echo "$output"
 }
@@ -170,7 +163,7 @@ _prompt_render_hooks() {
     local output name value
 
     for name in $(prompt_list_hooks); do
-        value="$(_prompt_render_hook $name)"
+        value=$(_prompt_render_hook "$name")
         [ "$value" ] && output+=" $value"
     done
 
@@ -179,9 +172,12 @@ _prompt_render_hooks() {
 
 _prompt_render_hook() {
     local name="$1"
-    local color="${_prompt_hook_colors[$name]}"
-    local func="${_prompt_hooks[$name]}"
 
-    local output="$(eval $func)"
-    [ "$output" ] && echo "$name:$(term_color $color)$output$(term_color)"
+    local color func output color_code
+    color="${_prompt_hook_colors[$name]}"
+    func="${_prompt_hooks[$name]}"
+    output=$(eval "$func")
+    color_code=$(term_color "$color")
+
+    [ "$output" ] && echo "$name:$color_code$output$(term_color)"
 }

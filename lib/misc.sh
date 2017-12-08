@@ -1,34 +1,28 @@
 # -*- mode: sh -*-
+# shellcheck disable=SC2039
 #
 # Miscellaneous shell-related functions.
 
 
 # Print boolean value of the exit code of the command passed as argument.
-#
-# Usage: bool [command args...]
-#
 bool() {
     "$@" && echo "true" || echo "false"
 }
 
-
 # Split directories in a PATH-like variable.
-#
-# Usage: split_path_dirs [string]
-#
 split_path_dirs() {
-    echo "$1" | sed 's/:/\n/g'
+    local paths="$1"
+    # shellcheck disable=SC2001
+    echo "$paths" | sed 's/:/\n/g'
 }
 
-
 # Return whether a string is present in a list of strings.
-#
-# Usage: contains_string [a-string] [strings...]
-#
 contains_string() {
     local match="$1"
+    local strings="$2"
+
     local s
-    for s in $2; do
+    for s in $strings; do
         if [ "$s" == "$match" ]; then
             return 0
         fi
@@ -36,30 +30,22 @@ contains_string() {
     return 1
 }
 
-
 # Return whether the shell is interactive.
-#
-# Usage: is_interactive
-#
 is_interactive() {
     [[ $- == *i* ]]
 }
 
-
-# Source a system file.
-# If no filename is given, list the available names.
-#
-# Usage: s [<filename>, ...]
-#
+# Source a system file.  If no filename is given, list the available names.
 s() {
     local sourcedir="$SYSTEM_DIR/source"
     if [ $# -eq 0 ]; then
-        ls -1 $sourcedir;
+        ls -1 "$sourcedir"
         return
     fi
 
     local file
     for file in "$@"; do
+        # shellcheck disable=SC1090
         . "$sourcedir/$file"
     done
 }

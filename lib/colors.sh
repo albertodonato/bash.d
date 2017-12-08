@@ -40,9 +40,7 @@ declare -gA _colors=(
     [solarized.green]='38;5;64'
 )
 
-
 # Return the escape string for a color name or code. 
-#
 term_color() {
     local code
 
@@ -51,9 +49,7 @@ term_color() {
     echo -ne "\e[${code}m"
 }
 
-
 # Return the escape string for a prompt color.
-#
 prompt_color() {
     local code
 

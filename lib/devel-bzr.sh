@@ -1,18 +1,18 @@
 # -*- mode: sh -*-
+# shellcheck disable=SC2039
 #
 # Utility functions for Bazaar.
 
 
 # Return the name of the current pipe if different from the branch name.
-#
-# Usage: bzr_pipe_if_different [path]
-#
 bzr_pipe_if_different() {
-    local path
-    [ "$1" ] && path="$1" || path="$PWD"
+    local path="$1"
+    [ "$path" ] || path="$PWD"
+
+    local dir pipe
     if _bzr_is_lw_checkout "$path"; then
-        local dir=$(basename "$path")
-        local pipe=$(_bzr_current_pipe "$path")
+        dir=$(basename "$path")
+        pipe=$(_bzr_current_pipe "$path")
         [ "$dir" != "$pipe" ] && echo "$pipe"
     fi
 }
