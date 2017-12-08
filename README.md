@@ -1,5 +1,7 @@
 # Ack's bash setup
 
+[![Build status](https://img.shields.io/travis/albertodonato/bash.d.svg)](https://travis-ci.org/albertodonato/bash.d)
+
 My own Bash shell configuration.
 
 The entry point is the `bashrc` file in the top directory, which can be just
