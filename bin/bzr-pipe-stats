@@ -27,11 +27,11 @@ for pipe in $(bzr pipes | awk '{ print $NF; }'); do
     revspec+="..:pipe:$pipe"
 
     tmpfile=$(mktemp)
-    counts=($(bzr diff -r $revspec | tee $tmpfile | diffstat_counts))
-    lines=$(wc -l <$tmpfile)
-    rm $tmpfile
+    counts=($(bzr diff -r "$revspec" | tee "$tmpfile" | diffstat_counts))
+    lines=$(wc -l <"$tmpfile")
+    rm "$tmpfile"
 
-    if [ $lines -eq 0 ]; then
+    if [ "$lines" -eq 0 ]; then
         counts=(0 0 0 0)
     else
         total_lines=$((total_lines + lines))
@@ -40,10 +40,12 @@ for pipe in $(bzr pipes | awk '{ print $NF; }'); do
         done
     fi
 
-    printf "%5d %5d %5d %5d %5d %s\n" $lines ${counts[@]} $pipe
+    # shellcheck disable=SC2068
+    printf "%5d %5d %5d %5d %5d %s\n" "$lines" ${counts[@]} "$pipe"
 
     prev_pipe=$pipe
 done
 
 echo "                              --"
-printf "%5d %5d %5d %5d %5d total\n" $total_lines ${total_counts[@]}
+# shellcheck disable=SC2068
+printf "%5d %5d %5d %5d %5d total\n" "$total_lines" ${total_counts[@]}

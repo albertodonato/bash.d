@@ -10,13 +10,13 @@ fi
 
 hostname="$1"
 shift 1
-ports="$@"
+ports="$*"
 
 opts=""
 for port in $ports; do
-    localport=${port/:*}
-    remoteport=${port/*:}
+    localport="${port/:*}"
+    remoteport="${port/*:}"
     opts+="-L $localport:localhost:$remoteport "
 done
 
-ssh -N $opts $hostname
+ssh -N "$opts" "$hostname"

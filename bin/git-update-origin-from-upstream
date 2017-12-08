@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # shellcheck disable=SC2039
 #
 # Fetch remotes and and update a branch (master by default) from the upstream
@@ -37,4 +37,4 @@ else
     git branch -f "$BRANCH" "upstream/$BRANCH"
 fi
 
-git push -u --tags "$ORIGIN" "$BRANCH"
+git push -u --tags "$ORIGIN_REMOTE" "$BRANCH"

@@ -1,4 +1,5 @@
 # -*- mode: sh -*-
+# shellcheck disable=SC1090
 #
 # Entry point for bash configuration
 
@@ -21,4 +22,4 @@ source_many() {
     done
 }
 
-source_many $SYSTEM_BASH_DIR/rc.d/*.sh
+source_many "$SYSTEM_BASH_DIR"/rc.d/*.sh
