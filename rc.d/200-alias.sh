@@ -23,6 +23,7 @@ alias ec="emacs -batch -f batch-byte-compile"
 alias ipy="ipython3"
 alias pytree="tree -P \*\.py  -I test_\*\.py -I \*\.pyc -I \*\.pyo -I \*\.egg-info -I __pycache__"
 
+# shellcheck disable=SC2142
 alias diffcount="diffstat -s | awk -F, '{ gsub(/[^0-9,]/, \"\"); print \$2+\$3; }'"
 
 alias jpgpdf="convert -compress JPEG -resize 1240x1753 -page A4 -units PixelsPerInch -density 150x150"

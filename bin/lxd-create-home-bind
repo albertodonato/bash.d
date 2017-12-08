@@ -4,7 +4,7 @@
 # bind-mount current user's home directory.
 
 
-SCRIPTNAME="$(basename $0)"
+SCRIPTNAME=$(basename "$0")
 PROFILE="home-bind"
 
 ensure_profile() {

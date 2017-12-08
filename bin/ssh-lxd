@@ -18,4 +18,5 @@ if [ ! "$ip" ]; then
     exit 2
 fi
 
+# shellcheck disable=SC2029
 ssh "$ip" "$@"

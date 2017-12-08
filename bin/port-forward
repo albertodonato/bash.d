@@ -19,4 +19,5 @@ for port in $ports; do
     opts+="-L $localport:localhost:$remoteport "
 done
 
+# shellcheck disable=SC2029
 ssh -N "$opts" "$hostname"
