@@ -1,0 +1,9 @@
+language: bash
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - shellcheck
+script:
+  - shellcheck -s bash bashrc {bin,lib,rc.d}/*
