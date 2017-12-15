@@ -5,15 +5,29 @@
 
 
 SCRIPTNAME=$(basename "$0")
-PROFILE="home-bind"
+
+DEFAULT_IMAGE="xenial"
+LXD_PROFILE="home-bind"
+CLOUD_INIT_CONF="#cloud-config
+groups:
+  - ack
+users:
+  - name: ack
+    primary-group: ack
+    groups: [libvirtd, kvm]
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    no-create-home: true
+"
+
 
 ensure_profile() {
-    if lxc profile show "$PROFILE" >/dev/null 2>&1; then
+    if lxc profile show "$LXD_PROFILE" >/dev/null 2>&1; then
         return
     fi
 
-    cat <<EOF | lxc profile create "$PROFILE"
-name: $PROFILE
+    cat <<EOF | lxc profile create "$LXD_PROFILE"
+name: $LXD_PROFILE
 description: Bind-mount home
 devices:
   homedir:
@@ -33,9 +47,21 @@ set_subuids() {
     done
 }
 
+create_container() {
+    local container="$1"
+    local release="$2"
+
+    lxc init "$release" "$container"
+    lxc config set "$container" raw.idmap "both 1000 1000"
+    lxc config set "$container" boot.autostart	1
+    lxc config set "$container" user.user-data "$CLOUD_INIT_CONF"
+    lxc profile add "$container" "$LXD_PROFILE"
+    lxc start "$container"
+}
+
 
 container="$1"
-release="${2:-xenial}"
+release="${2:-$DEFAULT_IMAGE}"
 
 if [ -z "$container" ]; then
     echo "Usage:  $SCRIPTNAME <container-name> [ubuntu-release]"
@@ -44,16 +70,4 @@ fi
 
 ensure_profile
 set_subuids
-
-
-lxc init "$release" "$container"
-lxc config set "$container" raw.idmap "both 1000 1000"
-lxc config set "$container" boot.autostart	1
-lxc profile add "$container" "$PROFILE"
-lxc start "$container"
-sleep 10
-lxc exec --verbose "$container" -- \
-    sed -i "s/^ubuntu:/$USER:/g; s,/home/ubuntu,$HOME,g" \
-    /etc/passwd /etc/shadow /etc/group /etc/gshadow
-lxc exec "$container" -- sed -i "s/ubuntu/$USER/g" \
-        /etc/sudoers.d/90-cloud-init-users
+create_container "$container" "$release"
