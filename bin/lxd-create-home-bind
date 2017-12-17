@@ -53,7 +53,6 @@ create_container() {
 
     lxc init "$release" "$container"
     lxc config set "$container" raw.idmap "both 1000 1000"
-    lxc config set "$container" boot.autostart	1
     lxc config set "$container" user.user-data "$CLOUD_INIT_CONF"
     lxc profile add "$container" "$LXD_PROFILE"
     lxc start "$container"
