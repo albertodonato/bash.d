@@ -119,7 +119,7 @@ prompt_set() {
             ;;
         extended|*)
             # shellcheck disable=SC1117
-            ps1="${retval}\$(printf '%3d' \\$?) ${user}\u${host}@\h ${path}\w${reset}"
+            ps1="${retval}\$(printf '%3d' \$?) ${user}\u${host}@\h ${path}\w${reset}"
             ps1+="\$(_prompt_render_flags)"
             ps1+="\$(_prompt_render_hooks)"
             # input goes on a new line
