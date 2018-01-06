@@ -71,6 +71,6 @@ shebang() {
     shift 1
     [ $# -gt 0 ] && shebang="$*"
 
-    echo -e "#!$shebang\n" > "$filename"
+    echo -e "#!$shebang\\n" > "$filename"
     chmod +x "$filename"
 }

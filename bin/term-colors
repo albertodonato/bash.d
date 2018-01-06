@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1117
 #
 # Print the 256 terminal colors.
 
@@ -14,9 +15,9 @@ declare -A modifiers=(
 [ "$modifier" ] && prefix="$modifier;"
 
 for i in {0..255}; do
-    printf -v code "%03d" $i
+    printf -v code '%03d' $i
     echo -ne "\e[${prefix}38;05;${code}m"
     echo -n "\e[${prefix}38;05;${code}m"
-    echo -ne "\e[m  "
+    echo -ne '\e[m  '
     [ $((i % 8)) == 7 ] && echo
 done

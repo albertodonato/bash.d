@@ -46,7 +46,7 @@ term_color() {
 
     [ "$1" ] && code=$(_get_color_code "$@") || code=0
 
-    echo -ne "\e[${code}m"
+    echo -ne "\\e[${code}m"
 }
 
 # Return the escape string for a prompt color.

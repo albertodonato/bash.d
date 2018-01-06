@@ -106,21 +106,24 @@ prompt_set() {
 
     local ps1
     case "$prompt_type" in
-        nocolor)
-            ps1="\u@\h \w \$ "
-            ;;
         basic)
+            # shellcheck disable=SC1117
             ps1="${prompt}\$${reset} "
             ;;
+        nocolor)
+            ps1='\u@\h \w \$ '
+            ;;
         normal)
+            # shellcheck disable=SC1117
             ps1="${user}\u${host}@\h ${path}\w ${prompt}\$${reset} "
             ;;
         extended|*)
-            ps1="${retval}\$(printf '%3d' \$?) ${user}\u${host}@\h ${path}\w${reset}"
+            # shellcheck disable=SC1117
+            ps1="${retval}\$(printf '%3d' \\$?) ${user}\u${host}@\h ${path}\w${reset}"
             ps1+="\$(_prompt_render_flags)"
             ps1+="\$(_prompt_render_hooks)"
             # input goes on a new line
-            ps1+="\n${prompt}\$${reset} "
+            ps1+="\\n${prompt}\$${reset} "
             ;;
     esac
 
@@ -128,7 +131,7 @@ prompt_set() {
     local termtitle
     case $TERM in
         xterm*|rxvt*)
-            termtitle="\[\e];\l - \H:\w\a\]"
+            termtitle='\[\e];\l - \H:\w\a\]'
             ;;
     esac
 

@@ -41,11 +41,11 @@ for pipe in $(bzr pipes | awk '{ print $NF; }'); do
     fi
 
     # shellcheck disable=SC2068
-    printf "%5d %5d %5d %5d %5d %s\n" "$lines" ${counts[@]} "$pipe"
+    printf '%5d %5d %5d %5d %5d %s\n' "$lines" ${counts[@]} "$pipe"
 
     prev_pipe=$pipe
 done
 
 echo "                              --"
 # shellcheck disable=SC2068
-printf "%5d %5d %5d %5d %5d total\n" "$total_lines" ${total_counts[@]}
+printf '%5d %5d %5d %5d %5d total\n' "$total_lines" ${total_counts[@]}
