@@ -12,7 +12,8 @@ diffstat_counts() {
 }
 
 total_lines=0
-total_counts=(0 0 0 0)
+declare -a total_counts=(0 0 0 0)
+declare -a counts
 
 echo "lines files     +     -   +/- name"
 
@@ -27,7 +28,7 @@ for pipe in $(bzr pipes | awk '{ print $NF; }'); do
     revspec+="..:pipe:$pipe"
 
     tmpfile=$(mktemp)
-    counts=($(bzr diff -r "$revspec" | tee "$tmpfile" | diffstat_counts))
+    mapfile -t counts < <(bzr diff -r "$revspec" | tee "$tmpfile" | diffstat_counts)
     lines=$(wc -l <"$tmpfile")
     rm "$tmpfile"
 

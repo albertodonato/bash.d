@@ -10,7 +10,7 @@ if is_interactive; then
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources
         sources=$(ls -1 "$SYSTEM_DIR/source")
-        COMPREPLY=( $(compgen -W "$sources" -- "$cur") )
+        mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
     complete -F _s s
 
@@ -18,7 +18,7 @@ if is_interactive; then
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources
         sources=$(ls -1 "$HOME/virtualenv")
-        COMPREPLY=( $(compgen -W "$sources" -- "$cur") )
+        mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
     complete -F _ve ve
 
@@ -26,7 +26,7 @@ if is_interactive; then
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources
         sources="$(lxc list --columns=ns | awk '$4 == "RUNNING" { print $2; }')"
-        COMPREPLY=( $(compgen -W "$sources" -- "$cur") )
+        mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
     complete -F _ssh_lxd ssh-lxd
 
@@ -34,7 +34,7 @@ if is_interactive; then
     _prompt_set() {
         local cur=${COMP_WORDS[COMP_CWORD]}
         local sources="basic normal nocolor extended"
-        COMPREPLY=( $(compgen -W "$sources" -- "$cur") )
+        mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
     complete -F _prompt_set prompt_set
 fi
