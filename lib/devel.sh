@@ -25,7 +25,7 @@ ve() {
 
     if [ -z "$name" ]; then
         echo "Available virtualenv:"
-        find "$dir" -maxdepth 1 | sed 's,.*/, ,' | sort
+        find "$dir" -mindepth 1 -maxdepth 1 | sed 's,.*/, ,' | sort
         return
     fi
 
