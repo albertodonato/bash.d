@@ -1,0 +1,120 @@
+#!/bin/bash -e
+
+SCRIPT=$(basename "$0")
+
+GO=${GO:-go}
+
+OPT_WORKDIR=""
+OPT_KEEPDIR=""
+OPT_OUTDIR="gobins"
+OPT_VERBOSE=""
+PROJECTS=""
+
+
+error_msg() {
+    echo "$@" >&2
+}
+
+print_help() {
+    cat <<EOF
+Usage: $SCRIPT [-hvk] [-g GOPATH] [-d OUTDIR]
+
+ -h            print this help
+ -v            verbose output
+ -k            keep $GOPATH directory
+ -g GOPATH     set GOPATH to the specified directory
+ -d OUTDIR     copy binaries to OUTDIR ("$OPT_OUTDIR" by default) 
+
+EOF
+}
+
+parse_args() {
+    local optstring="hkvg:d:"
+    local opt
+    
+    while getopts "$optstring" opt; do
+        case "$opt" in
+            k)
+                OPT_KEEPDIR=true
+                ;;
+            g)
+                OPT_WORKDIR="$OPTARG"
+                OPT_KEEPDIR="true"
+                ;;
+            d)
+                OPT_OUTDIR="$OPTARG"
+                ;;
+            v)
+                OPT_VERBOSE="-v"
+                ;;
+            h)
+                print_help
+                exit -1
+                ;;
+            *)
+                exit 1
+                ;;
+        esac
+    done
+
+    if [ "$OPTIND" -ge 2 ]; then
+        shift "$((OPTIND-1))"
+    fi
+    PROJECTS="$*"
+}
+
+get_gopath(){
+    local workdir="$1"
+
+    local gopath
+    if [ "$workdir" ]; then
+        gopath="$workdir"
+    else
+        gopath=$(mktemp -d -t "$SCRIPT.XXXXXXXXXX")
+    fi
+    gopath=$(realpath "$gopath")
+    echo "$gopath"
+}
+
+get_project() {
+    local project="${project%%/...}/..."
+    "$GO" get "$OPT_VERBOSE" "$project"
+}
+
+maybe_clean_tree() {
+    if [ "$OPT_KEEPDIR" ]; then
+        echo "not removing $GOPATH"
+    else
+        echo "removing $GOPATH"
+        rm -rf "$GOPATH"
+    fi
+}
+
+copy_bins() {
+    mkdir -p "$OPT_OUTDIR"
+    cp "$GOPATH"/bin/* "$OPT_OUTDIR"
+    strip -s "$OPT_OUTDIR"/*
+}
+
+main() {
+    parse_args "$@"
+    
+    export GOPATH
+    GOPATH=$(get_gopath "$OPT_WORKDIR")
+    trap maybe_clean_tree ERR SIGINT SIGTERM
+    export PATH="$GOPATH/bin:$PATH"
+
+    echo "GOPATH set to $GOPATH"
+    mkdir -p "$GOPATH" # ensure it's there
+
+    local project
+    for project in $PROJECTS; do
+        get_project "$project"
+    done
+
+    copy_bins
+    echo "compiled binaries left in $OPT_OUTDIR"
+    maybe_clean_tree
+}
+
+main "$@"
