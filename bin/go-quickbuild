@@ -11,8 +11,11 @@ OPT_VERBOSE=""
 PROJECTS=""
 
 
+msg() {
+    echo "$SCRIPT - $*"
+}
 error_msg() {
-    echo "$@" >&2
+    msg "$@" >&2
 }
 
 print_help() {
@@ -76,16 +79,18 @@ get_gopath(){
     echo "$gopath"
 }
 
-get_project() {
-    local project="${project%%/...}/..."
-    "$GO" get "$OPT_VERBOSE" "$project"
+build_project() {
+    local project="${1%%/...}/..."
+
+    msg "building $project"
+    "$GO" get $OPT_VERBOSE "$project"
 }
 
 maybe_clean_tree() {
     if [ "$OPT_KEEPDIR" ]; then
-        echo "not removing $GOPATH"
+        msg "not removing $GOPATH"
     else
-        echo "removing $GOPATH"
+        msg "removing $GOPATH"
         rm -rf "$GOPATH"
     fi
 }
@@ -104,16 +109,16 @@ main() {
     trap maybe_clean_tree ERR SIGINT SIGTERM
     export PATH="$GOPATH/bin:$PATH"
 
-    echo "GOPATH set to $GOPATH"
+    msg "GOPATH set to $GOPATH"
     mkdir -p "$GOPATH" # ensure it's there
 
     local project
     for project in $PROJECTS; do
-        get_project "$project"
+        build_project "$project"
     done
 
     copy_bins
-    echo "compiled binaries left in $OPT_OUTDIR"
+    msg "compiled binaries left in $OPT_OUTDIR"
     maybe_clean_tree
 }
 
