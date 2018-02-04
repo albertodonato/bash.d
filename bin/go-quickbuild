@@ -10,17 +10,17 @@ OPT_OUTDIR="gobins"
 OPT_VERBOSE=""
 PROJECTS=""
 
-
 msg() {
     echo "$SCRIPT - $*"
 }
+
 error_msg() {
     msg "$@" >&2
 }
 
 print_help() {
     cat <<EOF
-Usage: $SCRIPT [-hvk] [-g GOPATH] [-d OUTDIR]
+Usage: $SCRIPT [-hvk] [-g GOPATH] [-d OUTDIR] <projects...>
 
  -h            print this help
  -v            verbose output
