@@ -10,10 +10,10 @@ DEFAULT_IMAGE="xenial"
 LXD_PROFILE="home-bind"
 CLOUD_INIT_CONF="#cloud-config
 groups:
-  - ack
+  - $USER
 users:
-  - name: ack
-    primary-group: ack
+  - name: $USER
+    primary-group: $USER
     groups: [libvirtd, kvm]
     shell: /bin/bash
     sudo: ALL=(ALL) NOPASSWD:ALL
