@@ -101,25 +101,21 @@ copy_bins() {
     strip -s "$OPT_OUTDIR"/*
 }
 
-main() {
-    parse_args "$@"
-    
-    export GOPATH
-    GOPATH=$(get_gopath "$OPT_WORKDIR")
-    trap maybe_clean_tree ERR SIGINT SIGTERM
-    export PATH="$GOPATH/bin:$PATH"
+parse_args "$@"
 
-    msg "GOPATH set to $GOPATH"
-    mkdir -p "$GOPATH" # ensure it's there
+GOPATH=$(get_gopath "$OPT_WORKDIR")
+export GOPATH
+export PATH="$GOPATH/bin:$PATH"
 
-    local project
-    for project in $PROJECTS; do
-        build_project "$project"
-    done
+trap maybe_clean_tree ERR SIGINT SIGTERM
 
-    copy_bins
-    msg "compiled binaries left in $OPT_OUTDIR"
-    maybe_clean_tree
-}
+msg "GOPATH set to $GOPATH"
+mkdir -p "$GOPATH" # ensure it's there
 
-main "$@"
+for project in $PROJECTS; do
+    build_project "$project"
+done
+
+copy_bins
+msg "compiled binaries left in $OPT_OUTDIR"
+maybe_clean_tree
