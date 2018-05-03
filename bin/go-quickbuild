@@ -24,7 +24,7 @@ Usage: $SCRIPT [-hvk] [-g GOPATH] [-d OUTDIR] <projects...>
 
  -h            print this help
  -v            verbose output
- -k            keep $GOPATH directory
+ -k            keep the GOPATH directory
  -g GOPATH     set GOPATH to the specified directory
  -d OUTDIR     copy binaries to OUTDIR ("$OPT_OUTDIR" by default) 
 
