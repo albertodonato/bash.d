@@ -6,7 +6,7 @@
 
 SCRIPTNAME=$(basename "$0")
 
-DEFAULT_IMAGE="xenial"
+DEFAULT_IMAGE="bionic"
 LXD_PROFILE="home-bind"
 CLOUD_INIT_CONF="#cloud-config
 groups:
