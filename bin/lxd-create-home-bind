@@ -51,8 +51,11 @@ create_container() {
     local container="$1"
     local release="$2"
 
+    local uid
+    uid=$(id -u "$USER")
+
     lxc init "$release" "$container"
-    lxc config set "$container" raw.idmap "both 1000 1000"
+    lxc config set "$container" raw.idmap "both $uid $uid"
     lxc config set "$container" user.user-data "$CLOUD_INIT_CONF"
     lxc profile add "$container" "$LXD_PROFILE"
     lxc start "$container"
