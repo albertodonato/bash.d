@@ -22,11 +22,12 @@ users:
 
 
 ensure_profile() {
-    if lxc profile show "$LXD_PROFILE" >/dev/null 2>&1; then
-        return
+    if ! lxc profile show "$LXD_PROFILE" >/dev/null 2>&1; then
+        lxc profile create "$LXD_PROFILE"
     fi
 
-    cat <<EOF | lxc profile create "$LXD_PROFILE"
+    # ensure it's up to date
+    cat <<EOF | lxc profile edit "$LXD_PROFILE"
 name: $LXD_PROFILE
 description: Bind-mount home
 devices:
