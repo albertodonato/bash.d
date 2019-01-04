@@ -7,13 +7,13 @@ hostname="$1"
 shift 1
 
 
-if [ ! "$hostname" ]; then
+if [ -z "$hostname" ]; then
     echo "Missing container name"
     exit 1
 fi
 
 ip=$(lxd-ip "$hostname")
-if [ ! "$ip" ]; then
+if [ -z "$ip" ]; then
     echo "Address not found"
     exit 2
 fi

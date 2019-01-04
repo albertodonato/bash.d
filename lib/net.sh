@@ -8,7 +8,7 @@
 nova_instance_ip() {
     local hostname="$1"
 
-    if [ ! "$hostname" ]; then
+    if [ -z "$hostname" ]; then
         echo "Missing hostname"
         return 1
     fi

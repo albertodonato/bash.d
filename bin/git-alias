@@ -43,7 +43,7 @@ list_aliases() {
 
 
 cmd="$1"
-[ "$cmd" ] && shift 1
+[ -n "$cmd" ] && shift 1
 
 case "$cmd" in
     add)

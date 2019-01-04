@@ -19,7 +19,7 @@ echo "lines files     +     -   +/- name"
 
 for pipe in $(bzr pipes | awk '{ print $NF; }'); do
 
-    if [ "$prev_pipe" ]; then
+    if [ -n "$prev_pipe" ]; then
         revspec=":pipe:$prev_pipe"
     else
         revspec="ancestor:$ancestor"

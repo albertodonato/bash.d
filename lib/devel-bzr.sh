@@ -7,7 +7,7 @@
 # Return the name of the current pipe if different from the branch name.
 bzr_pipe_if_different() {
     local path="$1"
-    [ "$path" ] || path="$PWD"
+    [ -n "$path" ] || path="$PWD"
 
     local dir pipe
     if _bzr_is_lw_checkout "$path"; then

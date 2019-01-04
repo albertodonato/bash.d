@@ -43,7 +43,7 @@ mkve() {
     local name="$1"
     local version="$2"
 
-    if [ ! "$name" ]; then
+    if [ -z "$name" ]; then
         echo "Missing virtualenv name"
         return 1
     fi
@@ -63,7 +63,7 @@ shebang() {
     local filename="$1"
     local shebang="/bin/sh"
 
-    if [ ! "$filename" ]; then
+    if [ -z "$filename" ]; then
         echo "Missing filename"
         return 1
     fi

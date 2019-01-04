@@ -6,7 +6,7 @@
 
 
 copy_to_buffer() {
-    if [ "$TMUX" ]; then
+    if [ -n "$TMUX" ]; then
         tmux load-buffer -
         tmux show-buffer | xclip -i -sel clipboard
         tmux show-buffer  # to also print the URL

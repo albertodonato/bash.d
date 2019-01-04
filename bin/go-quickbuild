@@ -70,7 +70,7 @@ get_gopath(){
     local workdir="$1"
 
     local gopath
-    if [ "$workdir" ]; then
+    if [ -n "$workdir" ]; then
         gopath="$workdir"
     else
         gopath=$(mktemp -d -t "$SCRIPT.XXXXXXXXXX")
@@ -87,7 +87,7 @@ build_project() {
 }
 
 maybe_clean_tree() {
-    if [ "$OPT_KEEPDIR" ]; then
+    if [ -n "$OPT_KEEPDIR" ]; then
         msg "not removing $GOPATH"
     else
         msg "removing $GOPATH"

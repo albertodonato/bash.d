@@ -11,8 +11,8 @@ declare -A modifiers=(
     [underline]='4'
 )
 
-[ "$1" ] && modifier="${modifiers[$1]}"
-[ "$modifier" ] && prefix="$modifier;"
+[ -n "$1" ] && modifier="${modifiers[$1]}"
+[ -n "$modifier" ] && prefix="$modifier;"
 
 for i in {0..255}; do
     printf -v code '%03d' $i

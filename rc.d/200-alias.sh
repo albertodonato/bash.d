@@ -12,7 +12,7 @@ alias a="ag --color-match '49;31' --pager less"
 alias p0="patch -p0"
 alias ip="ip -c"
 
-if [ "$DISPLAY" ]; then
+if [ -n "$DISPLAY" ]; then
     alias e="emacsclient -n"
 else
     alias e="emacs -nw"

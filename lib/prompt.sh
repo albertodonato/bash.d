@@ -41,7 +41,7 @@ prompt_set_flag() {
     local value="$3"
     local prefix="$4"
 
-    [ "$value" ] || return
+    [ -n "$value" ] || return
 
     _prompt_flags[$name]="$value"
     _prompt_flag_prefixes[$name]="$prefix"
@@ -142,11 +142,11 @@ _prompt_render_flags() {
     local name output
 
     for name in $(prompt_list_flags); do
-        [ "$output" ] && output+="|"
+        [ -n "$output" ] && output+="|"
         output+=$(_prompt_render_flag "$name")
     done
 
-    [ "$output" ] && echo " [$output]"
+    [ -n "$output" ] && echo " [$output]"
 }
 
 _prompt_render_flag() {
@@ -158,7 +158,7 @@ _prompt_render_flag() {
     local value="${_prompt_flags[$name]}"
     color_code=$(term_color "$color")
     output="$color_code$value$(term_color)"
-    [ "$prefix" ] && output="$prefix:$output"
+    [ -n "$prefix" ] && output="$prefix:$output"
     echo "$output"
 }
 
@@ -167,7 +167,7 @@ _prompt_render_hooks() {
 
     for name in $(prompt_list_hooks); do
         value=$(_prompt_render_hook "$name")
-        [ "$value" ] && output+=" $value"
+        [ -n "$value" ] && output+=" $value"
     done
 
     echo -e "$output"
@@ -182,5 +182,5 @@ _prompt_render_hook() {
     output=$(eval "$func")
     color_code=$(term_color "$color")
 
-    [ "$output" ] && echo "$name:$color_code$output$(term_color)"
+    [ -n "$output" ] && echo "$name:$color_code$output$(term_color)"
 }
