@@ -1,0 +1,9 @@
+#!/bin/bash
+
+file="$1"
+
+out_file="${file%.p7m}"
+pem_file="${out_file}.pem"
+
+openssl pkcs7 -inform DER -in "$file" -print_certs -out "$pem_file"
+openssl smime -verify -in "$file" -inform der -noverify -signer "$pem_file" -out "$out_file"
