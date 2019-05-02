@@ -27,4 +27,5 @@ alias pytree='tree -P \*\.py  -I test_\*\.py -I \*\.pyc -I \*\.pyo -I \*\.egg-in
 alias diffcount="diffstat -s | awk -F, '{ gsub(/[^0-9,]/, \"\"); print \$2+\$3; }'"
 
 alias jpgpdf="convert -compress JPEG -resize 1240x1753 -page A4 -units PixelsPerInch -density 150x150"
-alias publicip="wget -q  http://checkip.dyn.com/ -O - | sed 's/.* \\([0-9.]\\+\\)<.*/\\1/'"
+alias publicip="curl -s  http://checkip.dyn.com/ | sed 's/.* \\([0-9.]\\+\\)<.*/\\1/'"
+alias pytrove="curl -s 'https://pypi.org/pypi?:action=list_classifiers'"
