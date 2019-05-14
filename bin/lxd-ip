@@ -4,10 +4,11 @@
 #
 # Usage: lxd-ip <name>
 
+name="$1"
 
-if [ -z "$1" ]; then
+if [ -z "$name" ]; then
     echo "Missing container name"
     exit 1
 fi
 
-lxc list "$1" --columns=4 | awk '/eth0/ { print $2; }'
+lxc list "$name" --columns=n4 | awk '$2 == "'"$name"'" && /eth0/ { print $4; }'
