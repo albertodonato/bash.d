@@ -2,13 +2,14 @@
 #
 # Return the IP address of a LXD container.
 #
-# Usage: lxd-ip <name>
+# Usage: lxd-ip <name> [iface]
 
 name="$1"
+iface="${2:-eth0}"
 
 if [ -z "$name" ]; then
     echo "Missing container name"
     exit 1
 fi
 
-lxc list "$name" --columns=n4 | awk '$2 == "'"$name"'" && /eth0/ { print $4; }'
+lxc info "$name" | awk '/\s+'"$iface"':\s+inet\s+/ { print $3; }'
