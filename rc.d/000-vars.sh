@@ -15,6 +15,9 @@ export HISTFILESIZE=100000
 
 export EDITOR="emacsclient -c"
 export ALTERNATE_EDITOR=""  # to start emacs server
+export EMACS_SOCKET_NAME
+EMACS_SOCKET_NAME="/run/user/$(id -u)/emacs/server"
+
 export LESS="-R"
 
 export EMAIL="alberto.donato@gmail.com"
