@@ -22,3 +22,4 @@ export LESS="-R"
 
 export EMAIL="alberto.donato@gmail.com"
 export DEBEMAIL="$EMAIL"
+export DEBFULLNAME="Alberto Donato"
