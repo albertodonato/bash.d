@@ -21,14 +21,19 @@ ve() {
     local name="$1"
 
     local dir="$HOME/virtualenv"
-    local activate="$dir/$name/bin/activate"
 
     if [ -z "$name" ]; then
-        echo "Available virtualenv:"
-        find "$dir" -mindepth 1 -maxdepth 1 | sed 's,.*/, ,' | sort
+        echo "Available virtualenvs:"
+        local venv venvs version
+        venvs=$(find "$dir" -mindepth 1 -maxdepth 1 | sed 's,.*/,,' | sort)
+        for venv in $venvs; do
+            version=$(readlink "$dir/$venv/bin/python" | sed 's/^python//')
+            echo " ($version) $venv"
+        done
         return
     fi
 
+    local activate="$dir/$name/bin/activate"
     if [ ! -f "$activate" ]; then
         echo "Virtualenv not found" >&2
         return 2
