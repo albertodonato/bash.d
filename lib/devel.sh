@@ -39,7 +39,6 @@ ve() {
         return 2
     fi
 
-    prompt_set_flag virtualenv solarized.red "$name" ve
     VIRTUAL_ENV_DISABLE_PROMPT=1 . "$activate"
 }
 
