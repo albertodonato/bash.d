@@ -15,7 +15,7 @@ declare -A modifiers=(
 [ -n "$modifier" ] && prefix="$modifier;"
 
 for i in {0..255}; do
-    printf -v code '%03d' $i
+    printf -v code '%03d' "$i"
     echo -ne "\e[${prefix}38;05;${code}m"
     echo -n "\e[${prefix}38;05;${code}m"
     echo -ne '\e[m  '
