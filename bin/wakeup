@@ -1,0 +1,16 @@
+#!/bin/bash -e
+#
+# Send WOL packet to a machine from name
+#
+# Config file must contain lines in the form "<name> <mac>"
+#
+
+CONFIG="$HOME/.wakeonlan"
+
+[ -f "$CONFIG" ] || exit 1
+[ -n "$1" ] || exit 1
+
+macaddress=$(awk -v name="$1" '$1 == name { print $2; quit; }' "$CONFIG")
+
+[ -n "$macaddress" ] || exit 1
+wakeonlan "$macaddress"
