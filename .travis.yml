@@ -1,6 +1,5 @@
 language: bash
-
+os: linux
 services:
   - docker
-
 script: make lint-docker
