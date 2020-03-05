@@ -1,6 +1,6 @@
 # Ack's bash setup
 
-[![Build status](https://img.shields.io/travis/albertodonato/bash.d.svg)](https://travis-ci.org/albertodonato/bash.d)
+[![Build Status](https://travis-ci.com/albertodonato/bash.d.svg?branch=master)](https://travis-ci.com/albertodonato/bash.d)
 
 My own Bash shell configuration.
 
