@@ -75,6 +75,13 @@ shebang() {
     shift 1
     [ $# -gt 0 ] && shebang="$*"
 
-    echo -e "#!$shebang\\n" > "$filename"
+    local line="#!$shebang"
+
+    touch "$filename"
+    if [ "$(stat --printf="%s" "$filename")" -gt 0 ]; then
+        sed -i '1 s,.*,'"$line", "$filename"
+    else
+        echo -e "$line\\n" > "$filename"
+    fi
     chmod +x "$filename"
 }
