@@ -73,7 +73,12 @@ shebang() {
     fi
 
     shift 1
-    [ $# -gt 0 ] && shebang="$*"
+    if [ $# -gt 0 ]; then
+        shebang="$*"
+        if [[ "$shebang" != /* ]]; then
+            shebang="/usr/bin/env $shebang"
+        fi
+    fi
 
     local line="#!$shebang"
 
