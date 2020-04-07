@@ -8,28 +8,32 @@ SCRIPTNAME=$(basename "$0")
 
 DEFAULT_IMAGE="bionic"
 LXD_PROFILE="home-bind"
-CLOUD_INIT_CONF="#cloud-config
-groups:
-  - $USER
-users:
-  - name: $USER
-    primary-group: $USER
-    groups: [libvirtd, kvm]
-    shell: /bin/bash
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    no-create-home: true
-"
-
 
 ensure_profile() {
     if ! lxc profile show "$LXD_PROFILE" >/dev/null 2>&1; then
         lxc profile create "$LXD_PROFILE"
     fi
 
+    local uid
+    uid=$(id -u "$USER")
+
     # ensure it's up to date
     cat <<EOF | lxc profile edit "$LXD_PROFILE"
 name: $LXD_PROFILE
 description: Bind-mount home
+config:
+  raw.idmap: both 1000 1000
+  user.user-data: |
+    #cloud-config
+    groups:
+      - $USER
+    users:
+      - name: $USER
+        primary-group: $USER
+        groups: [libvirtd, kvm]
+        shell: /bin/bash
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        no-create-home: true
 devices:
   homedir:
     path: /home
@@ -51,15 +55,7 @@ set_subuids() {
 create_container() {
     local container="$1"
     local release="$2"
-
-    local uid
-    uid=$(id -u "$USER")
-
-    lxc init "$release" "$container"
-    lxc config set "$container" raw.idmap "both $uid $uid"
-    lxc config set "$container" user.user-data "$CLOUD_INIT_CONF"
-    lxc profile add "$container" "$LXD_PROFILE"
-    lxc start "$container"
+    lxc launch "$release" "$container" -p default -p "$LXD_PROFILE"
 }
 
 
