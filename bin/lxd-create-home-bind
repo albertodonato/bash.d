@@ -22,7 +22,7 @@ ensure_profile() {
 name: $LXD_PROFILE
 description: Bind-mount home
 config:
-  raw.idmap: both 1000 1000
+  raw.idmap: both $uid $uid
   user.user-data: |
     #cloud-config
     groups:
