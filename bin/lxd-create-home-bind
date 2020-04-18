@@ -42,16 +42,6 @@ devices:
 EOF
 }
 
-set_subuids() {
-    local subid_line="root:$UID:1"
-    local file
-    for file in /etc/subuid /etc/subgid; do
-        if ! grep -q "$subid_line" "$file"; then
-            echo "$subid_line" | sudo tee -a "$file"
-        fi
-    done
-}
-
 create_container() {
     local container="$1"
     local release="$2"
@@ -68,5 +58,4 @@ if [ -z "$container" ]; then
 fi
 
 ensure_profile
-set_subuids
 create_container "$container" "$release"
