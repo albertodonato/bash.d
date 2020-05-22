@@ -27,7 +27,7 @@ ve() {
         local venv venvs version
         venvs=$(find "$dir" -mindepth 1 -maxdepth 1 | sed 's,.*/,,' | sort)
         for venv in $venvs; do
-            version=$(readlink "$dir/$venv/bin/python" | sed 's/^python//')
+            version=$(readlink "$dir/$venv/bin/python" | sed 's/.*python//')
             echo " ($version) $venv"
         done
         return
