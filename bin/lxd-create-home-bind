@@ -31,9 +31,10 @@ config:
       - name: $USER
         primary-group: $USER
         groups: [libvirtd, kvm]
+        no-create-home: true
         shell: /bin/bash
         sudo: ALL=(ALL) NOPASSWD:ALL
-        no-create-home: true
+        uid: $uid
 devices:
   homedir:
     path: /home
