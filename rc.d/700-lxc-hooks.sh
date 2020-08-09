@@ -9,7 +9,7 @@ if [ "$(container_type)" = "lxc" ]; then
     agent_source_file=/tmp/ssh-agent.source
 
     if [ ! -f $agent_source_file ]; then
-        ssh-agent -s >"$agent_source_file"
+        ssh-agent -s | grep -v 'Agent pid' >"$agent_source_file"
     fi
     . "$agent_source_file"
 
