@@ -6,35 +6,43 @@
 if is_interactive; then
     source_if_exists /etc/bash_completion
 
-    _s() {
+    _bcomp_s() {
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources
         sources=$(ls -1 "$SYSTEM_DIR/source")
         mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
-    complete -F _s s
+    complete -F _bcomp_s s
 
-    _ve() {
+    _bcomp_ve() {
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources
         sources=$(ls -1 "$HOME/virtualenv")
         mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
-    complete -F _ve ve
+    complete -F _bcomp_ve ve
 
-    _ssh_lxd() {
+    _bcomp_ssh_lxd() {
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources
         sources="$(lxc list --columns=ns | awk '$4 == "RUNNING" { print $2; }')"
         mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
-    complete -F _ssh_lxd ssh-lxd
+    complete -F _bcomp_ssh_lxd ssh-lxd
 
 
-    _prompt_set() {
-        local cur=${COMP_WORDS[COMP_CWORD]}
+    _bcomp_prompt_set() {
+        local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources="basic normal nocolor extended"
         mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
-    complete -F _prompt_set prompt_set
+    complete -F _bcomp_prompt_set prompt_set
+
+    _bcomp_wakeup() {
+        local cur="${COMP_WORDS[COMP_CWORD]}"
+        local sources
+        sources="$(wakeup)"
+        mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
+    }
+        complete -F _bcomp_wakeup wakeup
 fi
