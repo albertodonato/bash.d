@@ -1,6 +1,6 @@
 # Ack's bash setup
 
-[![Build Status](https://travis-ci.com/albertodonato/bash.d.svg?branch=master)](https://travis-ci.com/albertodonato/bash.d)
+[![Lint](https://github.com/albertodonato/bash.d/workflows/Lint/badge.svg)](https://github.com/albertodonato/bash.d/actions?query=workflow%3ALint)
 
 My own Bash shell configuration.
 

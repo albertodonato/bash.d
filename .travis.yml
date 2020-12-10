@@ -1,3 +1,0 @@
-language: bash
-os: linux
-script: make lint
