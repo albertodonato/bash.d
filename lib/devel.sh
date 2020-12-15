@@ -42,10 +42,10 @@ ve() {
     VIRTUAL_ENV_DISABLE_PROMPT=1 . "$activate"
 }
 
-# Create a virtualenv with the specified name (and optionally version).
+# Create a virtualenv with the specified name and install packages.
 mkve() {
     local name="$1"
-    local version="$2"
+    shift 1
 
     if [ -z "$name" ]; then
         echo "Missing virtualenv name"
@@ -53,13 +53,8 @@ mkve() {
     fi
 
     local dir="$HOME/virtualenv/$name"
-    local interpreter="python${version}"
-    if [ -z "$version" ]; then
-        # shellcheck disable=SC2012
-        interpreter="$(ls /usr/bin/python?.? | sort -r | head -1)"
-    fi
-
-    virtualenv --python="$interpreter" "$dir"
+    python3 -m venv "$dir"
+    "$dir/bin/pip" install --upgrade pip "$@"
 }
 
 # Create a script with the specified name.
