@@ -27,8 +27,8 @@ ve() {
         local venv venvs version
         venvs=$(find "$dir" -mindepth 1 -maxdepth 1 | sed 's,.*/,,' | sort)
         for venv in $venvs; do
-            version=$(readlink "$dir/$venv/bin/python" | sed 's/.*python//')
-            echo " ($version) $venv"
+            version=$(awk -F' = ' '$1 == "version" { print $2; }' "$dir/$venv/pyvenv.cfg")
+            echo -e " $version\t$venv"
         done
         return
     fi
