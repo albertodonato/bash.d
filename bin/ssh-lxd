@@ -19,4 +19,4 @@ if [ -z "$ip" ]; then
 fi
 
 # shellcheck disable=SC2029
-ssh "$ip" "$@"
+ssh "$USER@$ip" "$@"
