@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage $(basename "$0") <html> <pdf>"
+    exit 1
+fi
+
+source="$1"
+dest="$2"
+
+chromium --disable-gpu --headless --print-to-pdf-no-header --print-to-pdf="$dest" "$source"
