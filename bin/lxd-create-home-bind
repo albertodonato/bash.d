@@ -6,7 +6,7 @@
 
 SCRIPTNAME=$(basename "$0")
 
-DEFAULT_IMAGE="bionic"
+DEFAULT_IMAGE="focal"
 LXD_PROFILE="home-bind"
 
 ensure_profile() {
