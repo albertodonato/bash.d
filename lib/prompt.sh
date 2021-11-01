@@ -51,9 +51,9 @@ prompt_set_flag() {
 prompt_unset_flag() {
     local name="$1"
 
-    unset _prompt_flags["$name"]
-    unset _prompt_flag_prefixes["$name"]
-    unset _prompt_flag_colors["$name"]
+    unset "_prompt_flags[$name]"
+    unset "_prompt_flag_prefixes[$name]"
+    unset "_prompt_flag_colors[$name]"
 }
 
 # List prompt flags.
@@ -75,8 +75,8 @@ prompt_set_hook() {
 prompt_unset_hook() {
     local name="$1"
 
-    unset _prompt_hooks["$name"]
-    unset _prompt_hook_colors["$name"]
+    unset "_prompt_hooks[$name]"
+    unset "_prompt_hook_colors[$name]"
 }
 
 # List prompt hooks.
