@@ -1,5 +1,3 @@
-# -*- mode: sh -*-
-#
 # vterm helper functions
 
 

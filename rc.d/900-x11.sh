@@ -1,5 +1,3 @@
-# -*- mode: sh -*-
-#
 # Settings for X11 apps
 
 if [ -n "$DISPLAY" ]; then

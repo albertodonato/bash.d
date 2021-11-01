@@ -1,5 +1,3 @@
-# -*- mode: sh -*-
-#
 # Hooks for setting prompt elements
 
 

@@ -1,4 +1,3 @@
-# -*- mode: sh -*-
 # shellcheck disable=SC2039
 #
 # Linux containers utility functions.

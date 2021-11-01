@@ -1,5 +1,3 @@
-# -*- mode: sh -*-
-#
 # Environment variables exports
 
 

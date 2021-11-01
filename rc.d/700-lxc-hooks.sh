@@ -1,4 +1,3 @@
-# -*- mode: sh -*-
 # shellcheck disable=SC1090
 #
 # Hook for LXC/LXD login setup

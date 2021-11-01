@@ -1,5 +1,3 @@
-# -*- mode: sh -*-
-#
 # Helper functions for terminal color escape codes.
 
 

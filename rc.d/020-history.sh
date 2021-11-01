@@ -1,5 +1,3 @@
-# -*- mode: sh -*-
-#
 # Shell history setup
 
 shopt -s histappend
