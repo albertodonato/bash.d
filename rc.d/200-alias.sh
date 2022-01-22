@@ -17,6 +17,7 @@ else
 fi
 alias ee="emacsclient -e"
 alias ec="emacs -batch -f batch-byte-compile"
+alias enw="emacs -q -nw"
 
 alias ipy="ipython3"
 alias pytree='tree -P \*\.py  -I test_\*\.py -I \*\.pyc -I \*\.pyo -I \*\.egg-info -I __pycache__'
