@@ -59,7 +59,7 @@ mkve() {
 # Create a script with the specified name.
 shebang() {
     local filename="$1"
-    local shebang="/bin/bash"
+    local shebang="/bin/bash -e"
 
     if [ -z "$filename" ]; then
         echo "Missing filename"
