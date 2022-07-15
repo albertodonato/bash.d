@@ -6,8 +6,6 @@ unalias -a
 alias ll="ls -lFh --color=tty"
 alias la="ll -A"
 
-alias a="ag --color-match '49;31' --pager less"
-alias p0="patch -p0"
 alias ip="ip -c"
 
 if [ -n "$DISPLAY" ]; then
@@ -17,7 +15,7 @@ else
 fi
 alias ee="emacsclient -e"
 alias ec="emacs -batch -f batch-byte-compile"
-alias enw="emacs -q -nw"
+alias enw="emacsclient -q -nw"
 
 alias ipy="ipython3"
 alias pytree='tree -P \*\.py  -I test_\*\.py -I \*\.pyc -I \*\.pyo -I \*\.egg-info -I __pycache__'
