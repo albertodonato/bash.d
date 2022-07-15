@@ -8,11 +8,11 @@ alias la="ll -A"
 
 alias ip="ip -c"
 
-if [ -n "$DISPLAY" ]; then
-    alias e="emacsclient -n"
-else
-    alias e="emacs -nw"
-fi
+r() {
+    rg -p "$@" | less -R
+}
+
+alias e="emacsclient -n"
 alias ee="emacsclient -e"
 alias ec="emacs -batch -f batch-byte-compile"
 alias enw="emacsclient -q -nw"
