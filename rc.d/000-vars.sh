@@ -7,6 +7,7 @@ PATH="$HOME/bin:$SYSTEM_DIR/bin:$SYSTEM_BASH_DIR/bin:$_PATH"
 PATH+=":$HOME/.local/bin"
 PATH+=":$HOME/.cargo/bin"
 PATH+=":$HOME/npm/bin"
+PATH+=":$HOME/virtualenv/__main__/bin"
 
 export GOPATH="$HOME/go"
 PATH+=":$GOPATH/bin"
@@ -25,3 +26,5 @@ export DEBEMAIL="$EMAIL"
 export DEBFULLNAME="Alberto Donato"
 
 export MOZ_ENABLE_WAYLAND=1
+
+export DOCKER_BUILDKIT=1

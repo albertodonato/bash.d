@@ -27,5 +27,5 @@ alias diffcount="diffstat -s | awk -F, '{ gsub(/[^0-9,]/, \"\"); print \$2+\$3; 
 alias noansi="sed -u 's/\x1b\[[0-9;]*m//g'"
 
 alias jpgpdf="convert -compress JPEG -resize 1240x1753 -page A4 -units PixelsPerInch -density 150x150"
-alias publicip="curl -s  http://checkip.dyn.com/ | sed 's/.* \\([0-9.]\\+\\)<.*/\\1/'"
+alias publicip="curl -s http://whatismyip.akamai.com/ && echo"
 alias neofetch="curl -s https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch | bash"
