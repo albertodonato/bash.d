@@ -16,8 +16,8 @@ declare -A modifiers=(
 
 for i in {0..255}; do
     printf -v code '%03d' "$i"
-    echo -ne "\e[${prefix}38;05;${code}m"
-    echo -n "\e[${prefix}38;05;${code}m"
-    echo -ne '\e[m  '
+    printf "\e[%s38;05;%sm" "$prefix" "$code"
+    printf "\\\e[%s38;05;%sm" "$prefix" "$code"
+    printf '\e[m  '
     [ $((i % 8)) == 7 ] && echo
 done

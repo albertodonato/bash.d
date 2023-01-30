@@ -44,7 +44,7 @@ term_color() {
 
     [ -n "$1" ] && code=$(_get_color_code "$@") || code=0
 
-    echo -ne "\\e[${code}m"
+    printf "\\e[%sm" "$code"
 }
 
 # Return the escape string for a prompt color.
@@ -53,7 +53,7 @@ prompt_color() {
 
     [ -n "$1" ] && code=$(_get_color_code "$@") || code=0
 
-    echo -n "\\[\\033[${code}m\\]"
+    printf "\\[\\033[%sm\\]" "$code"
 }
 
 _get_color_code() {
