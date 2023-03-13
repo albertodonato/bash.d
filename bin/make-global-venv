@@ -1,0 +1,24 @@
+#!/bin/bash -e
+#
+# Create or update the __main__ virtualenv for globally-available Python
+# applications.
+#
+
+# shellcheck source=lib/devel.sh
+. "$SYSTEM_SH_LIB_DIR/devel.sh"
+
+declare -a PACKAGES=(
+    black
+    build
+    flake8
+    ipython
+    isort
+    mypy
+    pip
+    pyproject_fmt
+    pyupgrade
+    tox
+    twine
+)
+
+mkve __main__ "${PACKAGES[@]}" "$@"
