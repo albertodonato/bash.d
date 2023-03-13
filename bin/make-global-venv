@@ -11,6 +11,7 @@ declare -a PACKAGES=(
     black
     build
     flake8
+    flake8-pyproject
     ipython
     isort
     mypy
