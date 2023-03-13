@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := lint
 
+FILES = bashrc bin/* lib/* rc.d/*
+
 lint:
-	@shellcheck bashrc bin/* lib/* rc.d/*
+	@shellcheck -s bash $(FILES)
 .PHONY: lint
