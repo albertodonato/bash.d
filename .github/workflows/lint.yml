@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  shellcheck:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - name: Repository checkout
@@ -19,3 +19,5 @@ jobs:
       uses: ludeeus/action-shellcheck@master
       env:
         SHELLCHECK_OPTS: -s bash
+      with:
+        check_together: 'yes'
