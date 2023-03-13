@@ -14,7 +14,6 @@ declare -a PACKAGES=(
     ipython
     isort
     mypy
-    pip
     pyproject_fmt
     pyupgrade
     tox
