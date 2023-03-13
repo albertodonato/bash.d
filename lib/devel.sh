@@ -52,7 +52,7 @@ mkve() {
     fi
 
     local dir="$HOME/virtualenv/$name"
-    python3 -m venv "$dir"
+    python3 -m venv --clear "$dir"
     "$dir/bin/pip" install --upgrade pip "$@"
 }
 
