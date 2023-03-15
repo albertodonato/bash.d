@@ -17,6 +17,8 @@ declare -a PACKAGES=(
     mypy
     pyproject_fmt
     pyupgrade
+    sphynx
+    sphinx-autodoc-typehints
     tox
     twine
 )
