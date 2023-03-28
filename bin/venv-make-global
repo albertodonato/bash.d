@@ -17,6 +17,7 @@ declare -a PACKAGES=(
     mypy
     pyproject_fmt
     pyupgrade
+    setuptools
     sphynx
     sphinx-autodoc-typehints
     tox
