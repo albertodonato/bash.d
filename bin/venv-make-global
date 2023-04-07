@@ -15,12 +15,13 @@ declare -a PACKAGES=(
     ipython
     isort
     mypy
-    pyproject_fmt
+    pyproject-fmt
     pyupgrade
     setuptools
-    sphynx
     sphinx-autodoc-typehints
+    sphynx
     tox
+    tox-ini-fmt
     twine
 )
 
