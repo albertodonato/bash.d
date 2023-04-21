@@ -8,4 +8,4 @@ fi
 source="$1"
 dest="$2"
 
-chromium --disable-gpu --headless --print-to-pdf-no-header --print-to-pdf="$dest" "$source"
+chromium --disable-gpu --headless --no-pdf-header-footer --print-to-pdf="$dest" "$source"
