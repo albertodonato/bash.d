@@ -15,45 +15,18 @@ delpyc() {
     find "$@" -name \*.pyc -exec rm {} \;
 }
 
-# Activate a python virtualenv. List available ones if no name is specified.
-ve() {
-    local name="$1"
-
-    local dir="$HOME/virtualenv"
-
-    if [ -z "$name" ]; then
-        echo "Available virtualenvs:"
-        local venv venvs version
-        venvs=$(find "$dir" -mindepth 1 -maxdepth 1 | sed 's,.*/,,' | sort)
-        for venv in $venvs; do
-            version=$(awk -F' = ' '$1 == "version" { print $2; }' "$dir/$venv/pyvenv.cfg")
-            echo -e " $version\t$venv"
-        done
-        return
-    fi
-
-    local activate="$dir/$name/bin/activate"
-    if [ ! -f "$activate" ]; then
-        echo "Virtualenv not found" >&2
-        return 2
-    fi
-
-    VIRTUAL_ENV_DISABLE_PROMPT=1 . "$activate"
-}
-
-# Create a virtualenv with the specified name and install packages.
-mkve() {
-    local name="$1"
+# Create a virtualenv in the specified dir, optionally installing packages.
+mkvenv() {
+    local path="$1"
     shift 1
 
-    if [ -z "$name" ]; then
-        echo "Missing virtualenv name"
+    if [ -z "$path" ]; then
+        echo "Missing virtualenv path"
         return 1
     fi
 
-    local dir="$HOME/virtualenv/$name"
-    python3 -m venv --clear "$dir"
-    "$dir/bin/pip" install --upgrade pip "$@"
+    python3 -m venv --clear "$path"
+    "$path/bin/pip" install --upgrade pip "$@"
 }
 
 # Create a script with the specified name.

@@ -1,7 +1,6 @@
 #!/bin/bash -e
 #
-# Create or update the __main__ virtualenv for globally-available Python
-# applications.
+# Create or update the virtualenv for globally-available Python applications.
 #
 
 # shellcheck source=lib/devel.sh
@@ -25,4 +24,4 @@ declare -a PACKAGES=(
     twine
 )
 
-mkve __main__ "${PACKAGES[@]}" "$@"
+mkvenv "$HOME/venv" "${PACKAGES[@]}" "$@"
