@@ -1,5 +1,3 @@
-# shellcheck disable=SC2039
-#
 # Network-related functions.
 
 

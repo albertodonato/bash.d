@@ -1,5 +1,3 @@
-# shellcheck disable=SC2039
-#
 # Prompt-related functions.
 #
 # Three prompt formats are currently supported (as arguments to 'prompt_set'):
@@ -106,18 +104,15 @@ prompt_set() {
     local ps1
     case "$prompt_type" in
         basic)
-            # shellcheck disable=SC1117
             ps1="${prompt}\$${reset} "
             ;;
         nocolor)
             ps1='\u@\h \w \$ '
             ;;
         normal)
-            # shellcheck disable=SC1117
             ps1="${user}\u${host}@\h ${path}\w ${prompt}\$${reset} "
             ;;
         extended|*)
-            # shellcheck disable=SC1117
             ps1="${retval}\$(printf '%3d' \$?) ${user}\u${host}@\h ${path}\w${reset}"
             ps1+="\$(_prompt_render_flags)"
             ps1+="\$(_prompt_render_hooks)"

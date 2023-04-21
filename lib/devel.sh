@@ -1,5 +1,3 @@
-# shellcheck disable=SC1090,SC2039
-#
 # Utility functions for development.
 
 

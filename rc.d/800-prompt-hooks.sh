@@ -2,7 +2,6 @@
 
 
 prompt_set_flag container solarized.yellow "$(container_type)"
-# shellcheck disable=SC2016
 prompt_set_hook git solarized.orange 'git_prompt_ref'
 # shellcheck disable=SC2016
 prompt_set_hook go solarized.yellow '[ "$GOPATH" != "$HOME/go" ] && echo $GOPATH'

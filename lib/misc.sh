@@ -1,18 +1,9 @@
-# shellcheck disable=SC2039
-#
 # Miscellaneous shell-related functions.
 
 
 # Print boolean value of the exit code of the command passed as argument.
 bool() {
     "$@" && echo "true" || echo "false"
-}
-
-# Split directories in a PATH-like variable.
-split_path_dirs() {
-    local paths="$1"
-    # shellcheck disable=SC2001
-    echo "$paths" | sed 's/:/\n/g'
 }
 
 # Return whether a string is present in a list of strings.
