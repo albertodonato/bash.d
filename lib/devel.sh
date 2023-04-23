@@ -19,12 +19,24 @@ mkvenv() {
     shift 1
 
     if [ -z "$path" ]; then
-        echo "Missing virtualenv path"
+        echo "Missing virtualenv path" 2>&1
         return 1
     fi
 
     python3 -m venv --clear "$path"
     "$path/bin/pip" install --upgrade pip "$@"
+}
+
+# Create or update the virtualenv for globally-available Python applications.
+#
+# List of applications are taken from ~/.venv-global-requirements.txt
+venv-make-global() {
+    local requirements_file="$HOME/.venv-global-requirements.txt"
+    if [ ! -e "$requirements_file" ]; then
+        echo "Requirements file not found: $requirements_file" 2>&1
+        return 1
+    fi
+    mkvenv "$HOME/venv" -r "$requirements_file" "$@"
 }
 
 # Create a script with the specified name.
