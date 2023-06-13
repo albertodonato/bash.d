@@ -6,8 +6,6 @@ unalias -a
 alias ll="ls -lFh --color=tty"
 alias la="ll -A"
 
-alias ip="ip -c"
-
 r() {
     rg -p "$@" | less -R
 }
