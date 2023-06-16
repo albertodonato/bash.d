@@ -10,6 +10,10 @@ r() {
     rg -p "$@" | less -R
 }
 
+pytree() {
+    find "$1" -not -regex '.*__pycache__.*' | tree --fromfile
+}
+
 alias e="emacsclient -n"
 alias ee="emacsclient -e"
 alias ec="emacs -batch -f batch-byte-compile"
