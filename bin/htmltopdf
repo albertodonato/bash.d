@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 if [ $# -ne 2 ]; then
     echo "Usage $(basename "$0") <html> <pdf>"
@@ -8,4 +8,11 @@ fi
 source="$1"
 dest="$2"
 
-chromium --disable-gpu --headless --no-pdf-header-footer --print-to-pdf="$dest" "$source"
+chromium \
+    --incognito \
+    --headless \
+    --virtual-time-budget=100 \
+    --run-all-compositor-stages-before-draw \
+    --no-pdf-header-footer \
+    --print-to-pdf="$dest" \
+    "$source"
