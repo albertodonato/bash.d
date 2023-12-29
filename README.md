@@ -19,3 +19,14 @@ The repository consists of the following directories:
   these are basically what goes in `.bashrc`, split in different files.  Files
   in this directory are automatically sourced at shell startup in alphabetic
   order.
+
+## Setup
+
+To install:
+
+```bash
+mkdir -p ~/system
+git clone https://github.com/albertodonato/bash.d ~/system/bash.d
+mv ~/.bashrc ~/.bashrc.orig
+ln -sf system/bash.d/bashrc ~/.bashrc
+```

@@ -22,6 +22,8 @@ pytree() {
     find "$1" -not -regex '.*__pycache__.*' | tree --fromfile
 }
 
+alias dds="dd status=progress oflag=sync"
+
 # shellcheck disable=SC2142
 alias diffcount="diffstat -s | awk -F, '{ gsub(/[^0-9,]/, \"\"); print \$2+\$3; }'"
 
