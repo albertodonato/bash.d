@@ -12,13 +12,13 @@ if is_interactive; then
     }
     complete -F _bcomp_s s
 
-    _bcomp_ssh_lxd() {
+    _bcomp_ssh_incus() {
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources
-        sources="$(lxc list --columns=ns | awk '$4 == "RUNNING" { print $2; }')"
+        sources="$(incus list --columns=ns | awk '$4 == "RUNNING" { print $2; }')"
         mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
-    complete -F _bcomp_ssh_lxd ssh-lxd
+    complete -F _bcomp_ssh_incus ssh-incus
 
     _bcomp_prompt_set() {
         local cur="${COMP_WORDS[COMP_CWORD]}"

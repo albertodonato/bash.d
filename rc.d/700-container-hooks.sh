@@ -1,6 +1,6 @@
 # shellcheck disable=SC1090
 #
-# Hook for LXC/LXD login setup
+# Hook for containers login setup
 
 
 if [ "$(container_type)" = "lxc" ]; then

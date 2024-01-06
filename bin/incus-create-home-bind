@@ -1,25 +1,26 @@
 #!/bin/bash -e
 #
-# Create a LXD with the specified name (and optionally ubuntu release) and
-# bind-mount current user's home directory.
+# Create an Incus container with the specified name (and optionally image name)
+# and bind-mount current user's home directory.
 
 
 SCRIPTNAME=$(basename "$0")
 
-DEFAULT_IMAGE="jammy"
-LXD_PROFILE="home-bind"
+DEFAULT_IMAGE="ubuntu/jammy/cloud"
+PROFILE="home-bind"
+CLI="${CLI:-incus}"
 
 ensure_profile() {
-    if ! lxc profile show "$LXD_PROFILE" >/dev/null 2>&1; then
-        lxc profile create "$LXD_PROFILE"
+    if ! "$CLI" profile show "$PROFILE" >/dev/null 2>&1; then
+        "$CLI" profile create "$PROFILE"
     fi
 
     local uid
     uid=$(id -u "$USER")
 
     # ensure it's up to date
-    cat <<EOF | lxc profile edit "$LXD_PROFILE"
-name: $LXD_PROFILE
+    cat <<EOF | "$CLI" profile edit "$PROFILE"
+name: $PROFILE
 description: Bind-mount home
 config:
   raw.idmap: both $uid $uid
@@ -46,7 +47,7 @@ EOF
 create_container() {
     local container="$1"
     local release="$2"
-    lxc launch "$release" "$container" -p default -p "$LXD_PROFILE"
+    "$CLI" launch "$release" "$container" -p default -p "$PROFILE"
 }
 
 
@@ -54,7 +55,7 @@ container="$1"
 release="${2:-$DEFAULT_IMAGE}"
 
 if [ -z "$container" ]; then
-    echo "Usage:  $SCRIPTNAME <container-name> [ubuntu-release]"
+    echo "Usage:  $SCRIPTNAME <container-name> [image]"
     exit 1
 fi
 
