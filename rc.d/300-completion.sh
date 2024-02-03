@@ -1,7 +1,7 @@
 # Autocompletion configuration
 
-
-if is_interactive; then
+# only load completion for interactive shells
+if [[ $- == *i* ]]; then
     source_if_exists /etc/bash_completion
 
     _bcomp_s() {
