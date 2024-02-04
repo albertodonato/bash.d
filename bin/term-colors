@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 # shellcheck disable=SC1117
 #
 # Print the 256 terminal colors.

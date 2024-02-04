@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 # shellcheck disable=SC2039
 #
 # Fetch remotes and and update a branch (master by default) from the upstream
