@@ -1,7 +1,10 @@
 #!/bin/bash -e
+#
+# Convert an html file (or URL) to PDF.
+
 
 if [ $# -ne 2 ]; then
-    echo "Usage $(basename "$0") <html> <pdf>"
+    echo "Usage $(basename "$0") <html> <pdf>" >&2
     exit 1
 fi
 

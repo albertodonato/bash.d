@@ -1,0 +1,33 @@
+#!/bin/bash -e
+#
+# Create a script with the specified name.
+
+SCRIPTNAME="$(basename "$0")"
+
+
+filename="$1"
+if [ -z "$filename" ]; then
+    echo "Usage: $SCRIPTNAME <filename> [shebang]" >&2
+    exit 1
+fi
+
+shift 1
+
+shebang="/bin/bash -e"
+
+if [ $# -gt 0 ]; then
+    shebang="$*"
+    if [[ "$shebang" != /* ]]; then
+        shebang="/usr/bin/env $shebang"
+    fi
+fi
+
+line="#!$shebang"
+
+touch "$filename"
+if [ "$(stat --printf="%s" "$filename")" -gt 0 ]; then
+    sed -i '1 s,.*,'"$line", "$filename"
+else
+    echo -e "$line\\n" > "$filename"
+fi
+chmod +x "$filename"

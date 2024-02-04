@@ -1,0 +1,16 @@
+#!/bin/bash -e
+#
+# Create a Python virtualenv.
+
+SCRIPT="$(basename "$0")"
+
+path="$1"
+
+if [ -z "$path" ]; then
+    echo "Usage: $SCRIPT <path> [package ...]" >&2
+    exit 1
+fi
+
+shift 1
+python3 -m venv --clear "$path"
+"$path/bin/pip" install --upgrade pip "$@"
