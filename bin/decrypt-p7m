@@ -1,6 +1,14 @@
 #!/bin/bash -e
+#
+# Decrypt a P7M file.
+
 
 file="$1"
+
+if [ -z "$file" ]; then
+    echo "Missing input file" >&2
+    exit 1
+fi
 
 out_file="${file%.p7m}"
 pem_file="${out_file}.pem"
