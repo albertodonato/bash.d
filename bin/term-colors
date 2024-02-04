@@ -19,5 +19,5 @@ for i in {0..255}; do
     printf "\e[%s38;05;%sm" "$prefix" "$code"
     printf "\\\e[%s38;05;%sm" "$prefix" "$code"
     printf '\e[m  '
-    [ $((i % 8)) == 7 ] && echo
+    [[ $((i % 8)) == 7 ]] && echo
 done
