@@ -1,4 +1,6 @@
 #!/bin/bash -e
+#
+# Create a file to be used as a block device.
 
 SCRIPT="$(basename "$0")"
 
@@ -11,5 +13,5 @@ disk="$1"
 size="${2:-1024}"
 
 touch "$disk"
-chattr +C "$disk"  # ensure no COW is used
+chattr +C "$disk"  # ensure COW is not used
 dd if=/dev/zero of="$disk" bs="${size}k" count=1024

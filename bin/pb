@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #
-# Pastebinit input and copies the resulting url to clipboard (if under tmux).
+# Pastebin the input and copy the resulting URL to clipboard (if under tmux).
 #
 # Usage: <cmd> | pb [pastebinit options...]
 
