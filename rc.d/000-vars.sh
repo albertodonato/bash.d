@@ -21,10 +21,6 @@ EMACS_SOCKET_NAME="/run/user/$(id -u)/emacs/server"
 
 export LESS="-R"
 
-export EMAIL="alberto.donato@gmail.com"
-export DEBEMAIL="$EMAIL"
-export DEBFULLNAME="Alberto Donato"
-
 export MOZ_ENABLE_WAYLAND=1
 
 export DOCKER_BUILDKIT=1
