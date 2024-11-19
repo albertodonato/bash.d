@@ -1,33 +1,29 @@
-#!/bin/bash -e
+#!/bin/bash
 #
-# Create a script with the specified name.
+# Create a script with the specified name and interpreter.
+
+set -e -o pipefail
+
 
 SCRIPTNAME="$(basename "$0")"
 
-
 filename="$1"
 if [ -z "$filename" ]; then
-    echo "Usage: $SCRIPTNAME <filename> [shebang]" >&2
+    echo "Usage: $SCRIPTNAME <filename> [interpreter]" >&2
     exit 1
 fi
 
-shift 1
+interpreter="${2:-bash}"
 
-shebang="/bin/bash -e"
-
-if [ $# -gt 0 ]; then
-    shebang="$*"
-    if [[ "$shebang" != /* ]]; then
-        shebang="/usr/bin/env $shebang"
+if [[ "$interpreter" = /* ]]; then
+    header="#!$interpreter"
+else
+    header="#!/usr/bin/env $interpreter"
+    if [ "$interpreter" = "bash" ]; then
+       header="$header\n\nset -e -o pipefail"
     fi
 fi
 
-line="#!$shebang"
-
 touch "$filename"
-if [ "$(stat --printf="%s" "$filename")" -gt 0 ]; then
-    sed -i '1 s,.*,'"$line", "$filename"
-else
-    echo -e "$line\\n" > "$filename"
-fi
+echo -e "$header\n" > "$filename"
 chmod +x "$filename"
