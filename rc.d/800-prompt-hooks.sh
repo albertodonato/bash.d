@@ -7,4 +7,6 @@ prompt_set_hook git solarized.orange 'git_prompt_ref'
 prompt_set_hook go solarized.yellow '[ "$GOPATH" != "$HOME/go" ] && echo $GOPATH'
 # shellcheck disable=SC2016
 prompt_set_hook ve solarized.red '[ -n "$VIRTUAL_ENV" ] && echo $(basename $VIRTUAL_ENV)'
+# shellcheck disable=SC2016
+prompt_set_hook nix-shell solarized.red '[ -n "$IN_NIX_SHELL" ] && echo nis-shell'
 prompt_set extended

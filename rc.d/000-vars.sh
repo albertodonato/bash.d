@@ -21,6 +21,8 @@ EMACS_SOCKET_NAME="/run/user/$(id -u)/emacs/server"
 
 export LESS="-R"
 
+export STOW_DIR=$HOME/Sync
+
 export MOZ_ENABLE_WAYLAND=1
 
 export DOCKER_BUILDKIT=1
