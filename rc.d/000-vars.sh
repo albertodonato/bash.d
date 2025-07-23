@@ -14,15 +14,4 @@ PATH+=":$GOPATH/bin"
 
 export HISTFILESIZE=100000
 
-export EDITOR="emacsclient -c"
-export ALTERNATE_EDITOR=""  # to start emacs server
-export EMACS_SOCKET_NAME
-EMACS_SOCKET_NAME="/run/user/$(id -u)/emacs/server"
-
 export LESS="-R"
-
-export STOW_DIR=$HOME/Sync
-
-export MOZ_ENABLE_WAYLAND=1
-
-export DOCKER_BUILDKIT=1
