@@ -1,6 +1,8 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Create a Python virtualenv.
+
+set -e -o pipefail
 
 SCRIPT="$(basename "$0")"
 

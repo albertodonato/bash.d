@@ -1,7 +1,8 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Forward ports to the specified host using ssh tunneling.
 
+set -e -o pipefail
 
 if [ $# -lt 2 ]; then
     echo "  Usage: port-forward <host> <port|local-port:remote-port>..."

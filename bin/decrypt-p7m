@@ -1,7 +1,8 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Decrypt a P7M file.
 
+set -e -o pipefail
 
 file="$1"
 

@@ -1,9 +1,10 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Create or update the virtualenv for globally-available Python applications.
 #
 # List of applications are taken from ~/.venv-global-requirements.txt
 
+set -e -o pipefail
 
 requirements_file="$HOME/.venv-global-requirements.txt"
 

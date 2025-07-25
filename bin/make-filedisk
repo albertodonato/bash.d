@@ -1,6 +1,8 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Create a file to be used as a block device.
+
+set -e -o pipefail
 
 SCRIPT="$(basename "$0")"
 

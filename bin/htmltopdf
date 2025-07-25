@@ -1,7 +1,8 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Convert an html file (or URL) to PDF.
 
+set -e -o pipefail
 
 if [ $# -ne 2 ]; then
     echo "Usage $(basename "$0") <html> <pdf>" >&2

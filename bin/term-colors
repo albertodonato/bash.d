@@ -1,8 +1,9 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 # shellcheck disable=SC1117
 #
 # Print the 256 terminal colors.
 
+set -e -o pipefail
 
 declare -A modifiers=(
     [bold]='1'

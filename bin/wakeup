@@ -1,9 +1,11 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
 #
 # Send WOL packet to a machine from name
 #
 # Config file must contain lines in the form "<name> <mac>"
 #
+
+set -e -o pipefail
 
 CONFIG="$HOME/.wakeonlan"
 
