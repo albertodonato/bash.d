@@ -96,11 +96,11 @@ prompt_set() {
 
     local reset user host path retval prompt
     reset="$(prompt_color)"
-    user="$(prompt_color yellow)"
-    host="$(prompt_color solarized.blue)"
-    path="$(prompt_color solarized.green)"
-    retval="$(prompt_color solarized.red)"
-    prompt="$(prompt_color solarized.base0)"
+    user="$(prompt_color nord9)"
+    host="$(prompt_color nord10)"
+    path="$(prompt_color nord14)"
+    retval="$(prompt_color nord11)"
+    prompt="$(prompt_color nord4)"
 
     local ps1
     case "$prompt_type" in
