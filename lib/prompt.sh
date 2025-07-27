@@ -86,6 +86,7 @@ prompt_list_hooks() {
 #
 # Available profiles are:
 #  - basic
+#  - nocolor
 #  - normal
 #  - extended
 #
