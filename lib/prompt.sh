@@ -25,11 +25,11 @@
 #       alpabetically by key
 
 
-declare -A _prompt_flags=()
-declare -A _prompt_flag_prefixes=()
-declare -A _prompt_flag_colors=()
-declare -A _prompt_hooks=()
-declare -A _prompt_hook_colors=()
+declare -gA _prompt_flags=()
+declare -gA _prompt_flag_prefixes=()
+declare -gA _prompt_flag_colors=()
+declare -gA _prompt_hooks=()
+declare -gA _prompt_hook_colors=()
 
 # Set or update a flag in the prompt, optionally with a prefix.
 prompt_set_flag() {
