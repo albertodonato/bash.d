@@ -86,9 +86,9 @@ prompt_list_hooks() {
 #
 # Available profiles are:
 #  - basic
-#  - nocolor
-#  - normal
 #  - extended
+#  - nocolor
+#  - oneline
 #
 # By default, the 'exended' profile is used is used.
 prompt_set() {
@@ -96,21 +96,21 @@ prompt_set() {
 
     local reset user host path retval prompt
     reset="$(prompt_color)"
-    user="$(prompt_color nord9)"
-    host="$(prompt_color nord10)"
-    path="$(prompt_color nord14)"
-    retval="$(prompt_color nord11)"
-    prompt="$(prompt_color nord4)"
+    user="$(prompt_color cyan)"
+    host="$(prompt_color blue)"
+    path="$(prompt_color green)"
+    retval="$(prompt_color red)"
+    prompt="$(prompt_color darkgray)"
 
     local ps1
     case "$prompt_type" in
-        basic)
-            ps1="${prompt}\$${reset} "
-            ;;
         nocolor)
             ps1='\u@\h \w \$ '
             ;;
-        normal)
+        basic)
+            ps1="${prompt}\$${reset} "
+            ;;
+        oneline)
             ps1="${user}\u${host}@\h ${path}\w ${prompt}\$${reset} "
             ;;
         extended|*)
@@ -118,7 +118,7 @@ prompt_set() {
             ps1+="\$(_prompt_render_flags)"
             ps1+="\$(_prompt_render_hooks)"
             # input goes on a new line
-            ps1+="\\n${prompt}\$${reset} "
+            ps1+="\\n${prompt}>${reset} "
             ;;
     esac
 

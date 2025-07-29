@@ -17,7 +17,7 @@ if [[ $- == *i* ]]; then
 
     _bcomp_prompt_set() {
         local cur="${COMP_WORDS[COMP_CWORD]}"
-        local sources="basic normal nocolor extended"
+        local sources="basic extended nocolor oneline"
         mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
     }
     complete -F _bcomp_prompt_set prompt_set
