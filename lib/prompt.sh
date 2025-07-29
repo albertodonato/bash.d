@@ -102,6 +102,12 @@ prompt_set() {
     retval="$(prompt_color red)"
     prompt="$(prompt_color darkgray)"
 
+    local bar_down="┌─╼" # \u250C\u2500\u257C
+    local bar_up="└─╼"   # \u2514\u2500\u257C
+
+    unset PROMPT_COMMAND
+    _RC=0
+
     local ps1
     case "$prompt_type" in
         nocolor)
@@ -114,11 +120,12 @@ prompt_set() {
             ps1="${user}\u${host}@\h ${path}\w ${prompt}\$${reset} "
             ;;
         extended|*)
-            ps1="${retval}\$(printf '%3d' \$?) ${user}\u${host}@\h ${path}\w${reset}"
+            PROMPT_COMMAND=_prompt_command
+            ps1="${prompt}${bar_down} ${user}\u${host}@\h ${path}\w${reset}"
             ps1+="\$(_prompt_render_flags)"
             ps1+="\$(_prompt_render_hooks)"
-            # input goes on a new line
-            ps1+="\\n${prompt}>${reset} "
+            ps1+=" ${retval}\${_RC}${reset}"
+            ps1+="${reset}\\n${prompt}${bar_up} ${reset}"
             ;;
     esac
 
@@ -178,4 +185,8 @@ _prompt_render_hook() {
     color_code=$(term_color "$color")
 
     [ -n "$output" ] && echo "$name:$color_code$output$(term_color)"
+}
+
+_prompt_command() {
+    _RC="$?"
 }
