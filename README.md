@@ -1,11 +1,9 @@
-# Ack's bash setup
+# Configuration, functions and scripts for my shells.
 
-[![Lint](https://github.com/albertodonato/bash.d/workflows/Lint/badge.svg)](https://github.com/albertodonato/bash.d/actions?query=workflow%3ALint)
+[![Lint](https://github.com/albertodonato/shell.d/workflows/Lint/badge.svg)](https://github.com/albertodonato/shell.d/actions?query=workflow%3ALint)
 
-My own Bash shell configuration.
-
-The entry point is the `bashrc` file in the top directory, which can be just
-sourced from (or copied as) `~/.bashrc`.
+The entry point are the `bashrc` and `zshrc` files in the base directory, which
+can be just sourced from (or copied as) the main config file.
 
 The repository consists of the following directories:
 
@@ -14,18 +12,10 @@ The repository consists of the following directories:
 - `lib`: contains files with helper functions. These are automatically made
   available in the shell.
 
-- `rc.d`: actual bash configuration (environment variables, aliases, ...),
-  these are basically what goes in `.bashrc`, split in different files.  Files
-  in this directory are automatically sourced at shell startup in alphabetic
-  order.
-
-## Setup
-
-To install:
-
-```bash
-mkdir -p ~/system
-git clone https://github.com/albertodonato/bash.d ~/system/bash.d
-mv ~/.bashrc ~/.bashrc.orig
-ln -sf system/bash.d/bashrc ~/.bashrc
-```
+- `rc.d`: actual shell configuration (environment variables, aliases, ...).
+  Files in this directory are automatically sourced at shell startup in
+  alphabetic order.
+  
+  
+Files in both `lib` and `rc.d` are looked up by `.sh` and `.<shell>` extensions
+based on the current shell (`.bash` and `.zsh`).
