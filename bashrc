@@ -14,6 +14,7 @@ _find_shell_files() {
     shopt -u nullglob
 }
 
+
 . "${SHELL_D}/_shrc"
 
 
