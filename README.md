@@ -1,4 +1,4 @@
-# Configuration, functions and scripts for my shells.
+# Shell configuration files and scripts
 
 [![Lint](https://github.com/albertodonato/shell.d/workflows/Lint/badge.svg)](https://github.com/albertodonato/shell.d/actions?query=workflow%3ALint)
 
