@@ -1,0 +1,30 @@
+# -*- mode: sh -*-
+# shellcheck disable=SC1090
+#
+# Common entry point for shells.
+#
+# Requires the following to be set
+#
+# - $SHELL_D: absolute path of the repository directory
+# - _find_shell_files: function returning all files ending in .sh and .<shell>
+#   in a directory, in order
+
+
+source_if_exists() {
+    if [ -f "$1" ]; then
+        . "$1"
+    fi
+}
+
+source_all_for_shell() {
+    local dir="$1"
+    
+    local -a files
+    mapfile -t files < <(_find_shell_files "$dir")
+    for f in "${files[@]}"; do
+        . "$f";
+    done
+}
+
+source_all_for_shell "${SHELL_D}/lib"
+source_all_for_shell "${SHELL_D}/rc.d"
