@@ -12,8 +12,7 @@ The repository consists of the following directories:
 - `bin`: contains standalone scripts.
 
 - `lib`: contains files with helper functions. These are automatically made
-  available in the shell, and can be also sourced in other scripts. The path of
-  the directory is available as `$SYSTEM_SH_LIB_DIR`.
+  available in the shell.
 
 - `rc.d`: actual bash configuration (environment variables, aliases, ...),
   these are basically what goes in `.bashrc`, split in different files.  Files

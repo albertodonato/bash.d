@@ -5,8 +5,6 @@
 
 
 SYSTEM_BASH_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
-# Export for scripts
-export SYSTEM_SH_LIB_DIR="$SYSTEM_BASH_DIR/lib"
 
 source_if_exists() {
     if [ -f "$1" ]; then
