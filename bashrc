@@ -3,7 +3,7 @@
 # Entry point for bash configuration
 
 
-SHELL_D="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+_shell_d="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
 
 
 _find_shell_files() {
@@ -15,6 +15,4 @@ _find_shell_files() {
 }
 
 
-. "${SHELL_D}/_shrc"
-
-
+. "${_shell_d}/_shrc"

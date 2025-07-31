@@ -5,7 +5,7 @@
 #
 # Requires the following to be set
 #
-# - $SHELL_D: absolute path of the repository directory
+# - $_shell_d: absolute path of the repository directory
 # - _find_shell_files: function returning all files ending in .sh and .<shell>
 #   in a directory, in order
 
@@ -26,5 +26,5 @@ source_all_for_shell() {
     done
 }
 
-source_all_for_shell "${SHELL_D}/lib"
-source_all_for_shell "${SHELL_D}/rc.d"
+source_all_for_shell "${_shell_d}/lib"
+source_all_for_shell "${_shell_d}/rc.d"
