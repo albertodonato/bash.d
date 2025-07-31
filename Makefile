@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := lint
 
-FILES = bashrc bin/* lib/* rc.d/*
+FILES = bashrc _shrc bin/* lib/* rc.d/*
 
 lint:
 	@shellcheck -s bash $(FILES)
