@@ -3,8 +3,8 @@
 # only load completion for interactive shells
 if [[ $- == *i* ]]; then
     source_if_exists /etc/bash_completion
-    if [ -d "$HOME"/.bash_completion.d ]; then
-        source_many "$HOME"/.bash_completion.d/*
+    if [ -d "$HOME/.bash_completion.d" ]; then
+        source_all_for_shell "$HOME/.bash_completion.d"
     fi
 
     _bcomp_prompt_set() {
