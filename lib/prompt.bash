@@ -105,8 +105,7 @@ prompt_set() {
     local bar_down="┌─╼" # \u250C\u2500\u257C
     local bar_up="└─╼"   # \u2514\u2500\u257C
 
-    unset PROMPT_COMMAND
-    _RC=0
+    _prompt_rc=0
 
     local ps1
     case "$prompt_type" in
@@ -120,11 +119,10 @@ prompt_set() {
             ps1="${user}\u${host}@\h ${path}\w ${prompt}\$${reset} "
             ;;
         extended|*)
-            PROMPT_COMMAND=_prompt_command
             ps1="${prompt}${bar_down} ${user}\u${host}@\h ${path}\w${reset}"
             ps1+="\$(_prompt_render_flags)"
             ps1+="\$(_prompt_render_hooks)"
-            ps1+=" ${retval}\${_RC}${reset}"
+            ps1+=" ${retval}\${_prompt_rc}${reset}"
             ps1+="${reset}\\n${prompt}${bar_up} ${reset}"
             ;;
     esac
@@ -188,5 +186,9 @@ _prompt_render_hook() {
 }
 
 _prompt_command() {
-    _RC="$?"
+    _prompt_rc="$?" # must be saved first 
+    history -a
+    history -r
 }
+
+PROMPT_COMMAND="_prompt_command"
