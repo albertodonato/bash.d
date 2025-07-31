@@ -4,7 +4,7 @@
 # Entry point for bash configuration
 
 
-SYSTEM_BASH_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+SHELL_D="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
 
 source_if_exists() {
     if [ -f "$1" ]; then
@@ -19,4 +19,4 @@ source_many() {
     done
 }
 
-source_many "$SYSTEM_BASH_DIR"/rc.d/*.sh
+source_many "$SHELL_D"/rc.d/*.sh
