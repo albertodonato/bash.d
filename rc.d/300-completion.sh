@@ -7,14 +7,6 @@ if [[ $- == *i* ]]; then
         source_many "$HOME"/.bash_completion.d/*
     fi
 
-    _bcomp_s() {
-        local cur="${COMP_WORDS[COMP_CWORD]}"
-        local sources
-        sources=$(ls -1 "$SYSTEM_DIR/source")
-        mapfile -t COMPREPLY < <(compgen -W "$sources" -- "$cur")
-    }
-    complete -F _bcomp_s s
-
     _bcomp_prompt_set() {
         local cur="${COMP_WORDS[COMP_CWORD]}"
         local sources="basic extended nocolor oneline"
