@@ -34,7 +34,10 @@ _load_completers() {
 # Each line of the file is a command to run and eval output for.
 _load_evals() {
     local conf_file="$SHELL_D_CONF/bash-evals.txt"
-    local conf_file="conf" # XXX
+
+    if [ ! -f "$conf_file" ]; then
+        return
+    fi
 
     local cmdline cmd
     while IFS= read -r cmdline; do
