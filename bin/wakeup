@@ -7,7 +7,7 @@
 
 set -e -o pipefail
 
-CONFIG="$HOME/.wakeonlan"
+CONFIG="$SHELL_D_CONF/wakeonlan.txt"
 
 [ -f "$CONFIG" ] || exit 1
 

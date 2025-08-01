@@ -9,6 +9,9 @@
 # - _find_shell_files: function returning all files ending in .sh and .<shell>
 #   in a directory, in order
 
+# where all config files related to this repo live
+export SHELL_D_CONF="$HOME/.config/shell.d"
+
 
 source_if_exists() {
     if [ -f "$1" ]; then
