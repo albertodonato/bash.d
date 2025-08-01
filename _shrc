@@ -3,11 +3,11 @@
 #
 # Common entry point for shells.
 #
-# Requires the following to be set
+# Requires the following to be set:
 #
 # - $SHELL_D: absolute path of the repository directory
-# - _find_shell_files: function returning all files ending in .sh and .<shell>
-#   in a directory, in order
+# - _source_all_for_shell: source all.sh and .<shell> files in a directory, in
+#     order
 
 # where all config files related to this repo live
 export SHELL_D_CONF="$HOME/.config/shell.d"
@@ -19,15 +19,5 @@ source_if_exists() {
     fi
 }
 
-source_all_for_shell() {
-    local dir="$1"
-    
-    local -a files
-    mapfile -t files < <(_find_shell_files "$dir")
-    for f in "${files[@]}"; do
-        . "$f";
-    done
-}
-
-source_all_for_shell "${SHELL_D}/lib"
-source_all_for_shell "${SHELL_D}/rc.d"
+_source_all_for_shell "${SHELL_D}/lib"
+_source_all_for_shell "${SHELL_D}/rc.d"
