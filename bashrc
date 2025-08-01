@@ -1,4 +1,5 @@
 # -*- mode: sh -*-
+# shellcheck disable=SC1090
 #
 # Entry point for bash configuration
 
