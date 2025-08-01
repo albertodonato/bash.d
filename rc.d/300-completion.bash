@@ -24,7 +24,7 @@ _load_completers() {
         fi
 
         for name in $names; do
-            echo complete -C "$completer" "$name"
+            complete -C "$completer" "$name"
         done
     done <"$conf_file"
 }
