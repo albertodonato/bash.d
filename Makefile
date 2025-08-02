@@ -1,7 +1,10 @@
 .DEFAULT_GOAL := lint
 
-BASH_FILES = bashrc _shrc bin/* lib/*.{sh,bash} rc.d/*.{sh,bash}
+BASH_FILES = bashrc _shrc
+BASH_FILES += $(wildcard bin/*)
+BASH_FILES += $(wildcard lib/*.sh) $(wildcard lib/*.bash)
+BASH_FILES += $(wildcard rc.d/*.sh) $(wildcard rc.d/*.bash)
 
 lint:
-	@shopt -s nullglob; shellcheck -s bash $(BASH_FILES)
+	@shellcheck -s bash $(BASH_FILES)
 .PHONY: lint
