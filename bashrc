@@ -5,6 +5,8 @@
 
 
 SHELL_D="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+# shellcheck disable=SC2034
+SHELL_D_SHELL="bash"
 
 
 _find_shell_files() {

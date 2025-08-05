@@ -6,6 +6,7 @@
 # Requires the following to be set:
 #
 # - $SHELL_D: absolute path of the repository directory
+# - $SHELL_D_SHELL: the name of the current shell
 # - _source_all_for_shell: source all.sh and .<shell> files in a directory, in
 #     order
 

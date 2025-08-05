@@ -4,7 +4,7 @@
 
 
 SHELL_D="$(realpath "$(dirname "${(%):-%x}")")"
-
+SHELL_D_SHELL="zsh"
 
 _find_shell_files() {
     local dir="$1"
