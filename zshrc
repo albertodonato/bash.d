@@ -19,6 +19,7 @@ _source_all_for_shell() {
 
     local -a files
     files=("${(@f)$(_find_shell_files "$dir")}")
+    local f
     for f in "${files[@]}"; do
         . "$f"
     done

@@ -22,6 +22,7 @@ _source_all_for_shell() {
 
     local -a files
     mapfile -t files < <(_find_shell_files "$dir")
+    local f
     for f in "${files[@]}"; do
         . "$f";
     done
