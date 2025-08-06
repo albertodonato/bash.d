@@ -5,7 +5,7 @@
 
 
 # where all config files related to this repo live
-export SHELL_D_CONF="$HOME/.config/shell.d"
+export BASH_D_CONF="$HOME/.config/bash.d"
 
 
 _find_shell_files() {

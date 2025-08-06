@@ -9,7 +9,7 @@ _have_command() {
 #
 # Each line of the file is a command to run and eval output for.
 _load_evals() {
-    local conf_file="${SHELL_D_CONF}/bash-evals.txt"
+    local conf_file="${BASH_D_CONF}/evals.txt"
 
     if [ ! -f "$conf_file" ]; then
         return
@@ -30,7 +30,7 @@ _load_evals() {
 # Each line is a completer command plus program(s) the complation is for, or
 # just the command if it generates completions for itself.
 _load_completers() {
-    local conf_file="$SHELL_D_CONF/bash-completion-completers.txt"
+    local conf_file="$BASH_D_CONF/completers.txt"
 
     if [ ! -f "$conf_file" ]; then
         return
