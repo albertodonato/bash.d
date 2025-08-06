@@ -1,23 +1,22 @@
 # -*- mode: sh -*-
 # shellcheck disable=SC1090
 #
-# Entry point for bash configuration
+# Entry point for bash configuration.
 
 
-SHELL_D="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
-# shellcheck disable=SC2034
-SHELL_D_SHELL="bash"
+# where all config files related to this repo live
+export SHELL_D_CONF="$HOME/.config/shell.d"
 
 
 _find_shell_files() {
     local dir="$1"
 
     shopt -s nullglob
-    printf '%s\n' "$dir"/*.{sh,bash} | sort
+    printf '%s\n' "$dir"/*.sh | sort
     shopt -u nullglob
 }
 
-_source_all_for_shell() {
+_source_all_shell() {
     local dir="$1"
 
     local -a files
@@ -28,5 +27,13 @@ _source_all_for_shell() {
     done
 }
 
+_source_if_exists() {
+    if [ -f "$1" ]; then
+        . "$1"
+    fi
+}
 
-. "${SHELL_D}/_shrc"
+
+shell_d="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+_source_all_shell "${shell_d}/lib"
+_source_all_shell "${shell_d}/rc.d"

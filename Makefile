@@ -1,9 +1,6 @@
 .DEFAULT_GOAL := lint
 
-BASH_FILES = bashrc _shrc
-BASH_FILES += $(wildcard bin/*)
-BASH_FILES += $(wildcard lib/*.sh) $(wildcard lib/*.bash)
-BASH_FILES += $(wildcard rc.d/*.sh) $(wildcard rc.d/*.bash)
+BASH_FILES = bashrc lib/*.sh rc.d/*.sh
 
 lint:
 	@shellcheck -s bash $(BASH_FILES)

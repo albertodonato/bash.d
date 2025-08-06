@@ -1,11 +1,35 @@
 # Autocompletion configuration
 
 
+_have_command() {
+    command -v "$1" >/dev/null
+}
+
+# Load eval commands from file.
+#
+# Each line of the file is a command to run and eval output for.
+_load_evals() {
+    local conf_file="${SHELL_D_CONF}/bash-evals.txt"
+
+    if [ ! -f "$conf_file" ]; then
+        return
+    fi
+
+    local cmdline cmd
+    while IFS= read -r cmdline; do
+        cmd="${cmdline%% *}"
+        if ! _have_command "$cmd"; then
+            continue
+        fi
+        eval "$($cmdline)"
+    done <"$conf_file"
+}
+
 # Load completers from file.
 #
 # Each line is a completer command plus program(s) the complation is for, or
 # just the command if it generates completions for itself.
-load_completers() {
+_load_completers() {
     local conf_file="$SHELL_D_CONF/bash-completion-completers.txt"
 
     if [ ! -f "$conf_file" ]; then
@@ -27,10 +51,10 @@ load_completers() {
 
 # only load completion for interactive shells
 if [[ $- == *i* ]]; then
-    source_if_exists /etc/bash_completion
+    _source_if_exists /etc/bash_completion
 
-    load_completers
-    load_evals
+    _load_completers
+    _load_evals
 
     # completions for commands from the repository
 
