@@ -1,4 +1,4 @@
-# History setup
+# Shell setup options
 
 
 set -o noclobber
