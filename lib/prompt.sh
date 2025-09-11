@@ -1,17 +1,17 @@
 # Prompt-related functions.
 #
-# Three prompt formats are currently supported (as arguments to 'prompt_set'):
+# Four prompt formats are currently supported (as arguments to 'prompt_set'):
 #
 # - basic:
 #    $ _
 #
-# - normal:
+# - oneline:
 #    user@host /current/path $ _
 #
 # - nocolor:
 #    user@host /current/path $ _
 #
-#   this is the same as "normal", but without colors
+#   this is the same as "oneline", but without colors
 #
 # - extended (default):
 #    R user@host /current/path [info|...] key:val ...
